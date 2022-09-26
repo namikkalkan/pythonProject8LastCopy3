@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+
+{% extends 'main.html' %}
+{% load static%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br><br><h3>&emsp;My Account</h3><br>
+		<div class="card card-body" style="overflow-x:auto;">
+
+			<table class="table table-sm">
+				<tr>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Address</th>
+					<th>Town/City</th>
+					<th>Post Code</th>
+                    <th>Country</th>
+				</tr>
+				<tr>
+							<td>{{ customer.name }}</td>
+							<td>{{ customer.phone }}</td>
+							<td>{{ customer.email }}</td>
+							<td>{{ customer.address }}</td>
+                            <td>{{ customer.town }}</td>
+                            <td>{{ customer.post_code }}</td>
+                            <td>{{ customer.country }}</td>
+
+                </tr>
+
+			</table><br>
+            <a style="font-size:24px; background-color:#55EF72;" class = "btn btn-sm btn-info" href="{% url 'myaccountupdate' customer.id%}">Update</a>
+		</div>
+{% endblock content %}

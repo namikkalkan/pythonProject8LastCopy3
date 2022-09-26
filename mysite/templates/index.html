@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load crispy_forms_tags %}
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Homepage - Start Bootstrap Template</title>
+
+
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/css/styles.css" rel="stylesheet" />
+
+
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+
+         <!-- hamburger)-->
+
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-grey" style="background-color: #e3f2fd;">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="{% url 'index' %}">Rent It Mate</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'surfing' %}">Surfing</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{% url 'kayaking' %}">Kayaking</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{% url 'camping' %}">Camping</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <form class="d-flex">
+                        {% if request.user.is_authenticated %}
+                                <ul class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" style="text-decoration:none; font-size:26px; color:black;" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome {{request.user.customer.name}}</a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                            <li><a class="dropdown-item" href="{% url 'myaccount' customer.id %}">My Account</a></li>
+                                            <li><hr class="dropdown-divider" /></li>
+
+                                            <li><a class="dropdown-item" href="{% url 'listitem' customer.id %}">List an item</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'myitem' customer.id %}">My Items</a></li>
+                                            <li><hr class="dropdown-divider" /></li>
+
+                                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                                    </ul>
+                                </ul>
+
+
+                        {% else %}
+                            <button class="btn btn-outline-dark" style=" background:#9A9E9F" type="submit" >
+                                <a href="{% url 'login' %}" style="text-decoration: none; color:black" >Login</a>
+                            </button>
+                        {% endif%}
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-7 fw-bolder">Rent now, start your adventure !!</h1>
+                    <div class="categories" >
+                        <button class="button button1">
+                            <a style="text-decoration:none; color:black" href="{% url 'camping' %}">Camping </a>
+                        </button>
+                        <button class="button button2">
+                            <a style="text-decoration:none; color:black" href="{% url 'surfing' %}">Surfing </a>
+                        </button>
+                        <button class="button button3">
+                            <a style="text-decoration:none; color:black" href="{% url 'kayaking' %}">Kayaking</a>
+                        </button>
+
+                    </div><br>
+                    <p class="lead fw-normal text-white-50 mb-0">Check the map for closest to you</p><br>
+                    <button class="btn-lg" onclick="myFunction()">Filter</button>
+                </div>
+            </div>
+
+        </header>
+
+
+
+
+        <div style="display:none" id="filter_div" class="row">
+            <div class="col">
+                <div class="card card-body">
+
+                     <form method="get" enctype="multipart/form-data">
+                         <div class="row">
+                            <div class="form-group col-md-3 mb-0">
+                                 {{ p_filter.form.name|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                    {{ p_filter.form.start_date|as_crispy_field }}
+                            </div>
+                             <div class="form-group col-md-3 mb-0">
+                                    {{ p_filter.form.end_date|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                     {{ p_filter.form.category|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <br><button type="submit" class="btn btn-primary">Search</button>
+                     </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-body" style="overflow-y:auto; height: 500px; overflow: ">
+
+               <div id="map">
+
+               </div>
+
+        </div>
+
+
+        <!--  <marquee behavior="scroll" direction="right" scrollamount="15">   </marquee> -->
+        <section class="py-5">
+
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
+                        {% for product in products%}
+                            <div class="col mb-5" >
+                                <div class="card h-100"  >
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="{{product.imageURL}}"  alt="..." />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder" >
+                                                {{product.name}}
+                                            </h5>
+                                            <!-- Product price-->
+                                            ${{product.price|floatformat:2}}
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" href="{% url 'indexitem' product.id %}">View</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+        </section>
+
+
+
+
+
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="static/js/scripts.js"></script>
+
+
+
+
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg&callback=initMap&v=weekly"
+          defer
+        ></script>
+
+        <script>
+
+            {% if has_filter %}
+                var x = document.getElementById("filter_div");
+                x.style.display = "block";
+            {% endif %}
+
+            function myFunction() {
+
+                  var x = document.getElementById("filter_div");
+                  if (x.style.display === "none") {
+                    x.style.display = "block";
+                  }
+                  else {
+                    x.style.display = "none";
+                  }
+                }
+        </script>
+
+        <script>
+
+            function initMap() {
+
+              var markers2=[]
+              {% for product in products%}
+
+                var lats = '{{ product.customer.latitude }}'
+                var lats2 = parseFloat(lats)
+                var lg = '{{ product.customer.longitude }}'
+                var lg2 = parseFloat(lg)
+                var mark = {coord:{lat:lats2,lng:lg2},
+                           content : "<div style ='overflow-y:scroll;' >'<div class ='box small' style='float:left'><a href= {% url 'indexitem' product.id %} style = 'font-size:16px; text-decoration:none; color:black'><img id='surf1' src='static/images/{{product.item_pic}}'><br></div><div style='float:right; padding: 10px; font-size:14; '><b>{{product.name}}</b><br><b>${{product.price|floatformat:2}}</b> </div>",
+                           optimized: true
+                            }
+                markers2.push(mark);
+              {%endfor%}
+
+              var options = {
+                     zoom :10,
+                     center :{ lat: -37.844091, lng: 145.003759 }}
+
+              if (document.getElementById("map")){
+                  var map = new google.maps.Map(document.getElementById("map"), options);
+
+                  function addMarker(props){
+                    const marker = new google.maps.Marker({
+                        position: props.coord,
+                        map: map,
+                         });
+
+                    if (props.iconImg){
+                        marker.setIcon(props.iconImg);}
+
+                    if (props.content){
+                        var infoWindow = new google.maps.InfoWindow({
+                            content: props.content
+                           });
+                        marker.addListener('click', function(){
+                        infoWindow.open(map,marker);
+
+                        });
+                       }
+                    }
+
+
+                  for (var i =0 ; i < markers2.length; i++){
+                        addMarker(markers2[i]);}
+
+                }
+
+
+              }
+
+
+            window.initMap = initMap;
+
+
+        </script>
+
+    </body>
+
+
+</html>
+
+        <!-- Carousel, yapinca navbar bozuluyor
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+
+        <div class="container" style="width:%100; ">
+          <h2>Carousel Example</h2>
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+
+            <div class="carousel-inner">
+
+              <div class="item active">
+                <img src="images/s_bag.jpg" alt="Los Angeles" style="width:100%;">
+                <div class="carousel-caption">
+                  <h3>Los Angeles</h3>
+                  <p>LA is always so much fun!</p>
+                </div>
+              </div>
+
+              <div class="item">
+                <img src="images/milan.jpg" alt="Chicago" style="width:100%;">
+                <div class="carousel-caption">
+                  <h3>Chicago</h3>
+                  <p>Thank you, Chicago!</p>
+                </div>
+              </div>
+
+              <div class="item">
+                <img src="images/k1.jpg" alt="New York" style="width:100%;">
+                <div class="carousel-caption">
+                  <h3>New York</h3>
+                  <p>We love the Big Apple!</p>
+                </div>
+              </div>
+
+            </div>
+
+
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+            -->
