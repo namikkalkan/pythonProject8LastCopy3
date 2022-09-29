@@ -3,6 +3,7 @@ from .models import  *
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
+
 class DateForm(forms.Form):
     date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
 
@@ -15,7 +16,10 @@ class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
-        exclude = ['customer']
+
+        widgets = {
+        'customer': forms.TextInput(attrs={'type': 'hidden'}),
+    }
 
 class CustomerForm(ModelForm):
     class Meta:

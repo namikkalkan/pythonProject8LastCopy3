@@ -21,7 +21,6 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a></li>
 
                         <li class="nav-item dropdown">
@@ -36,21 +35,34 @@
                         </li>
 
                     </ul>
-
-                    </ul>
                     <form class="d-flex">
-                        {% if request.user != '' %}
-                            <div class="sidebar-brand-text mx-3" style="font-size:150%;">Welcome {{request.user.customer.name}} </div>
+                        {% if request.user.is_authenticated %}
+                                <ul class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" style="text-decoration:none; font-size:26px; color:black;" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome {{request.user.customer.name}}</a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                            <li><a class="dropdown-item" href="{% url 'myaccount' customer.id %}">My Account</a></li>
+                                            <li><hr class="dropdown-divider" /></li>
+
+                                            <li><a class="dropdown-item" href="{% url 'listitem' customer.id %}">List an item</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'myitem' customer.id %}">My Items</a></li>
+                                            <li><hr class="dropdown-divider" /></li>
+
+                                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                                    </ul>
+                                </ul>
+
+
+                        {% else %}
+                            <button class="btn btn-outline-dark" style=" background:#9A9E9F" type="submit" >
+                                <a href="{% url 'login' %}" style="text-decoration: none; color:black" >Login</a>
+                            </button>
                         {% endif%}
-
-                        <button class="btn btn-outline-dark" type="submit" >
-                            <a href="{% url 'cart' %}" style="text-decoration: none;" >Login</a>
-
-                        </button>
                     </form>
                 </div>
             </div>
-    </nav>
+        </nav>
 
     <div class="container">
         {% block content %}

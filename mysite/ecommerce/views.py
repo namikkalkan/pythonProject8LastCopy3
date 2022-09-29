@@ -12,6 +12,9 @@ from  .filters import *
 from django.forms.models import model_to_dict
 import json
 
+from datetime import datetime, timedelta
+
+
 from django.forms import inlineformset_factory
 # Create your views here.
 
@@ -20,12 +23,13 @@ def index(request):
     customers = Customer.objects.all()
     products = Product.objects.all()
 
+    d = datetime.today() - timedelta(days=3)
 
     p_filter = ProductFilter(request.GET,queryset=products)
     products = p_filter.qs
     has_filter = any(field in request.GET for field in set(p_filter.get_fields()))
 
-    context = {'products':products,'customer':customer,'customers':customers,'p_filter':p_filter,'has_filter':has_filter}
+    context = {'products':products,'customer':customer,'customers':customers,'p_filter':p_filter,'has_filter':has_filter,'d':d}
 
     return render(request,'index.html', context)
 

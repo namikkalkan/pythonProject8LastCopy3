@@ -77,6 +77,8 @@
         </nav>
         <!-- Product section-->
         <section class="py-5">
+
+
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div  class="col-md-4">
@@ -134,9 +136,12 @@
 
                             </div>
 
+
+
                         </div>
 
                     </div>
+
                 </div>
             </div>
         </section>
@@ -194,6 +199,44 @@
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg&callback=initMap&v=weekly"
           defer
         ></script>
+         <script src="https://www.paypal.com/sdk/js?client-id=Ae9St0QVslgRcmrdHie2uPia6B7wkJnIbVTyQfoxuRWoFiMuE7xvOiC6x_biSZHEOCPb3FPH0DO1QNLycurrency=USD"></script>
+
+        <script>
+            // Render the PayPal button into #paypal-button-container
+            paypal.Buttons({
+
+                // Set up the transaction
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '88.44'
+                            }
+                        }]
+                    });
+                },
+
+                // Finalize the transaction
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(orderData) {
+                        // Successful capture! For demo purposes:
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                        var transaction = orderData.purchase_units[0].payments.captures[0];
+                        alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                        // Replace the above to show a success message within this page, e.g.
+                        // const element = document.getElementById('paypal-button-container');
+                        // element.innerHTML = '';
+                        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                        // Or go to another URL:  actions.redirect('thank_you.html');
+                    });
+                }
+
+
+            }).render('#paypal-button-container');
+        </script>
+
+
         <script>
 
 
