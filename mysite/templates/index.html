@@ -25,7 +25,7 @@
     </head>
     <body>
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-grey" style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-grey " style=" background-color: #e3f2fd;">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="{% url 'index' %}">Rent It Mate</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -75,10 +75,10 @@
         </nav>
         <!-- Header-->
 
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
+        <header class="bg-dark py-3 " >
+            <div class="container px-4 px-lg-5 my-0">
                 <div class="text-center text-white">
-                    <h1 class="display-7 fw-bolder">Rent now, start your adventure !!</h1>
+                    <h3 class=" fw-bolder">Rent now, start your adventure !!</h3>
                     <div class="categories" >
                         <button class="button button1">
                             <a style="text-decoration:none; color:black" href="{% url 'camping' %}">Camping </a>
@@ -90,9 +90,9 @@
                             <a style="text-decoration:none; color:black" href="{% url 'kayaking' %}">Kayaking</a>
                         </button>
 
-                    </div><br>
-                    <p class="lead fw-normal text-white-50 mb-0">Check the map for closest to you</p><br>
-                    <button class="btn-lg" onclick="myFunction()">Filter</button>
+                    </div>
+                    <p class="lead fw-normal text-white-50 mb-0">Check the map for closest to you</p>
+                    <button class="btn-lg mt-1" onclick="myFunction()">Filter</button>
                 </div>
             </div>
 
@@ -198,6 +198,7 @@
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg&callback=initMap&v=weekly"
           defer
         ></script>
+
 
         <script>
 

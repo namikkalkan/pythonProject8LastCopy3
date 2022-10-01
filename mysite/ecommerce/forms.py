@@ -8,6 +8,8 @@ class DateForm(forms.Form):
     date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
 
 class OrderForm(ModelForm):
+
+    rent_from = forms.DateTimeField(widget=forms.DateInput(attrs={'placeholder':'Pick up from'}))
     class Meta:
         model = Order
         fields = '__all__'

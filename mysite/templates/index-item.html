@@ -78,7 +78,6 @@
         <!-- Product section-->
         <section class="py-5">
 
-
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div  class="col-md-4">
@@ -139,9 +138,8 @@
 
 
                         </div>
-
+                        <div id="paypal-button-container"></div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -180,6 +178,30 @@
         </section>
 
         <div style="width:%100; height:400px;" id="map"></div><br><br><br><br>
+
+
+
+            <form method="post" enctype="multipart/form-data">
+                {% load crispy_forms_tags %}
+                {% csrf_token %}
+                {{form}}
+
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        <div class="card-body">
+
+
+
+        </div>
+        <script>
+            document.getElementById('{{datepicker}}').value == 'datepicker'
+        </script>
+
+
+
+
+
+
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
@@ -187,6 +209,45 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
+
+
+
+         <!-- Replace "test" with your own sandbox Business account app client ID -->
+        <script src="https://www.paypal.com/sdk/js?client-id=Ae9St0QVslgRcmrdHie2uPia6B7wkJnIbVTyQfoxuRWoFiMuE7xvOiC6x_biSZHEOCPb3FPH0DO1QNLy&currency=USD"></script>
+        <!-- Set up a container element for the button -->
+         <script>
+          paypal.Buttons({
+            // Sets up the transaction when a payment button is clicked
+            createOrder: (data, actions) => {
+              return actions.order.create({
+                purchase_units: [{
+                  amount: {
+                    value: '{{product.price}}' // Can also reference a variable or function
+                  }
+                }]
+              });
+            },
+            // Finalize the transaction after payer approval
+            onApprove: (data, actions) => {
+              return actions.order.capture().then(function(orderData) {
+                // Successful capture! For dev/demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                const transaction = orderData.purchase_units[0].payments.captures[0];
+                alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                actions.redirect('confirmation.html');
+
+
+                // When ready to go live, remove the alert and show a success message within this page. For example:
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('confirmation.html');
+
+
+              });
+            }
+          }).render('#paypal-button-container');
+        </script>
+
 
         <script>
             $(function () {
@@ -199,42 +260,7 @@
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg&callback=initMap&v=weekly"
           defer
         ></script>
-         <script src="https://www.paypal.com/sdk/js?client-id=Ae9St0QVslgRcmrdHie2uPia6B7wkJnIbVTyQfoxuRWoFiMuE7xvOiC6x_biSZHEOCPb3FPH0DO1QNLycurrency=USD"></script>
 
-        <script>
-            // Render the PayPal button into #paypal-button-container
-            paypal.Buttons({
-
-                // Set up the transaction
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: '88.44'
-                            }
-                        }]
-                    });
-                },
-
-                // Finalize the transaction
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(orderData) {
-                        // Successful capture! For demo purposes:
-                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                        var transaction = orderData.purchase_units[0].payments.captures[0];
-                        alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
-
-                        // Replace the above to show a success message within this page, e.g.
-                        // const element = document.getElementById('paypal-button-container');
-                        // element.innerHTML = '';
-                        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                        // Or go to another URL:  actions.redirect('thank_you.html');
-                    });
-                }
-
-
-            }).render('#paypal-button-container');
-        </script>
 
 
         <script>
@@ -280,6 +306,7 @@
                                x.innerHTML = 'Pick up date must be earlier than drop off date 1' ;
                     }
                 }
+
 
 
         </script>

@@ -37,7 +37,20 @@ def indexitem(request,pk):
     products = Product.objects.all()
     product = Product.objects.get(id=pk)
     orders = Order.objects.all()
-    context = {'product': product, 'products':products,'orders':orders}
+    customer = request.user.customer
+    form = OrderForm(initial={'product': product,'customer':customer})
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+
+            form.save()
+            return redirect('/')
+        else:
+            print('hataa')
+            print(form.errors)
+
+    context = {'product': product, 'products':products,'orders':orders,'form':form}
     return render(request,'index-item.html',context)
 
 def surfing(request):
@@ -128,7 +141,7 @@ def myAccountUpdate(request, pk):
     form = CustomerForm(instance=customer)
 
     if request.method == 'POST':
-        form = ProductForm(request.POST, instance=customer)
+        form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
             form.save()
             return redirect('/')
