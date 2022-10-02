@@ -54,7 +54,10 @@ class Product(models.Model):
 
 
 
-class Order(models.Model):
+
+
+
+class Order_list(models.Model):
     STATUS = (('Pending', 'Pending'),
               ('Out for delivery', 'Out_for_delivery'),
               ('Delivered', 'Delivered'))

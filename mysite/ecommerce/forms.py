@@ -12,10 +12,12 @@ class OrderForm(ModelForm):
     #rent_from = forms.DateTimeField()
     #rent_to = forms.DateTimeField()
     class Meta:
-        model = Order
+        model = Order_list
         fields = '__all__'
 
         widgets = {
+            'rent_from': forms.TextInput(attrs={'placeholder': 'month/day/year'}),
+            'rent_to': forms.TextInput(attrs={'placeholder': 'month/day/year'}),
             'customer': forms.TextInput(attrs={'type': 'hidden'}),
             'product': forms.TextInput(attrs={'type': 'hidden'}),
             'id': forms.TextInput(attrs={'type': 'hidden'}),
