@@ -26,11 +26,10 @@
 
 
 
-             <!-- XDSoft DateTimePicker -->
+         <!-- XDSoft DateTimePicker -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
-
 
 
     </head>
@@ -86,59 +85,92 @@
 
                     </div>
                     <div class="col-md-6">
-                        <div hidden>{{product.id}}</div>
+                        <form method="post" enctype="multipart/form-data">
+                            {% load crispy_forms_tags %}
+                            {% csrf_token %}
 
-                        <div class="cnd-header cnd-header--uppercase cnd-text-sm cnd-mb-1">
-                            {{product.customer.name}}'s
-                        </div>
-                        <a id="productname" style="font-size:40px; text-decoration:none; color:black" class="cnd-header cnd-text-xl md:cnd-text-2xl cnd-mb-1">{{product.name}}</a>
-                        <div class="fs-5 mb-2">
-                            <span>${{product.price|floatformat:2}}/day</span>
-                        </div><hr>
-                        <div  class="cnd-flex cnd-flex-wrap" >
 
-                            <span><b class="cnd-text-black">88</b> trips</span><br>
-                            <b class="cnd-text-green">%95</b>
-                            <span>&nbsp;suggested by users</span>
-                        </div><hr>
+                            <div hidden>{{product.id}}</div>
 
-                        <p class="mb-2 lead">{{product.description}}</p><hr>
-                        <div id="dates" class="d-flex">
-                            <input class="form-control text-center me-3" id="datepicker" type="text" placeholder="Start from">
-                            <input class="form-control text-center me-3" id="datepicker2" type="text" placeholder="until">
-                            <a id="total"></a>
-                        </div><br>
-                        <div class="d-flex justify-content-around">
-                            <div  id="welcomeDiv"  style="display:none; border:solid; border-color:#BFE0E8" >
-                                <span>Rent time is </span><br><b style="font-weight: bold" id="day" ></b> days
-                                <b style="font-weight: bold" id="hour"></b> hours <hr>
-                                <span>Cost is </span><b  class="cnd-text-green" id="cost" style="color:green "></b> $
+                            <div class="cnd-header cnd-header--uppercase cnd-text-sm cnd-mb-1">
+                                {{product.customer.name}}'s
                             </div>
-                            <div>
-                                <button id="bookit" onclick="confirm()" class="btn btn-info flex-shrink-0" type="button" style=" margin:10px;display:none; float:right;">
-                                        <i class="bi-cart-fill me-1"></i>
-                                        <a href="#" style="text-decoration: none; color: black;" >Book</a>
-                                </button>
-                                {% if user.is_authenticated %}
-                                    <button id="booknow" class="btn btn-info flex-shrink-0" type="button" style=" margin:10px ; float:right;">
-                                        <i class="bi-cart-fill me-1"></i>
-                                        <a href="#" style="text-decoration: none; color: black;" >Calculate Cost</a><br>
-                                    </button>
+                            <a id="productname" style="font-size:40px; text-decoration:none; color:black" class="cnd-header cnd-text-xl md:cnd-text-2xl cnd-mb-1">{{product.name}}</a>
+                            <div class="fs-5 mb-2">
+                                <span>${{product.price|floatformat:2}}/day</span>
+                            </div><hr>
+                            <div  class="cnd-flex cnd-flex-wrap" >
 
-                                {% else %}
-                                    <button  class="btn btn-info flex-shrink-0" type="button" style="float:right;">
-                                        <i class="bi-cart-fill me-1"></i>
-                                        <a href="{% url 'register' %}" style="text-decoration: none; color: black;" >Register and book it</a>
-                                    </button>
+                                <span><b class="cnd-text-black">88</b> trips</span><br>
+                                <b class="cnd-text-green">%95</b>
+                                <span>&nbsp;suggested by users</span>
+                            </div><hr>
 
-                                {% endif %}
+                            <p class="mb-2 lead">{{product.description}}</p><hr>
+                            <div id="dates">
+
+                                </div><br>
+                                 <div class="row">
+
+                                        {{ form.customer|as_crispy_field }}
+                                      <div id="tarih1" class="form-group col-md-6 mb-0">
+                                        {{ form.rent_from|as_crispy_field }}
+                                       </div>
+
+                                      <div id="tarih2" class="form-group col-md-6 mb-0">
+                                        {{ form.rent_to|as_crispy_field }}
+                                      </div>
+                                 </div><br> {{ form.product|as_crispy_field }}
+                                <button style="display: none" id="confirmation-order" type="submit" class="btn btn-primary">Confirm booking</button>
+
+
+                                    <input class="form-control text-center me-3" id="datepicker" type="text" placeholder="Start from">
+                                    <input class="form-control text-center me-3" id="datepicker2" type="text" placeholder="until">
+                                    <a id="total"></a>
+
+
+
+                            <div class="d-flex justify-content-around">
+                                <div  id="welcomeDiv"  style="display:none; border:solid; border-color:#BFE0E8" >
+                                    <span>Rent time is </span><br><b style="font-weight: bold" id="day" ></b> days
+                                    <b style="font-weight: bold" id="hour"></b> hours <hr>
+                                    <span>Cost is </span><b  class="cnd-text-green" id="cost" style="color:green "></b> $
+                                </div>
+                                <div>
+                                    <button id="bookit"  class="btn btn-info flex-shrink-0" type="button" style=" margin:10px;display:none; float:right;">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            <a href="#" style="text-decoration: none; color: black;" >Book</a>
+                                    </button>
+                                    {% if user.is_authenticated %}
+                                        <button id="booknow" class="btn btn-info flex-shrink-0" type="button" style=" margin:10px ; float:right;">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            <a href="#" style="text-decoration: none; color: black;" >Calculate Cost</a><br>
+                                        </button>
+
+
+                                    {% else %}
+                                        <button  class="btn btn-info flex-shrink-0" type="button" style="float:right;">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            <a href="{% url 'register' %}" style="text-decoration: none; color: black;" >Register and book it</a>
+                                        </button>
+
+                                    {% endif %}
+
+                                </div>
+
+
 
                             </div>
+                            <div style="display:none" id="paypal-button-container"></div>
 
 
 
-                        </div>
-                        <div id="paypal-button-container"></div>
+                            <button type="submit">Submit test</button>
+
+                        </form>
+
+
+
                     </div>
                 </div>
             </div>
@@ -181,21 +213,7 @@
 
 
 
-            <form method="post" enctype="multipart/form-data">
-                {% load crispy_forms_tags %}
-                {% csrf_token %}
-                {{form}}
-
-                <button type="submit" class="btn btn-primary">Update</button>
-            </form>
-        <div class="card-body">
-
-
-
         </div>
-        <script>
-            document.getElementById('{{datepicker}}').value == 'datepicker'
-        </script>
 
 
 
@@ -216,13 +234,14 @@
         <script src="https://www.paypal.com/sdk/js?client-id=Ae9St0QVslgRcmrdHie2uPia6B7wkJnIbVTyQfoxuRWoFiMuE7xvOiC6x_biSZHEOCPb3FPH0DO1QNLy&currency=USD"></script>
         <!-- Set up a container element for the button -->
          <script>
+          var totalcost = document.getElementById('cost');
           paypal.Buttons({
             // Sets up the transaction when a payment button is clicked
             createOrder: (data, actions) => {
               return actions.order.create({
                 purchase_units: [{
                   amount: {
-                    value: '{{product.price}}' // Can also reference a variable or function
+                    value: 'totalcost' // Can also reference a variable or function
                   }
                 }]
               });
@@ -233,7 +252,8 @@
                 // Successful capture! For dev/demo purposes:
                 console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                 const transaction = orderData.purchase_units[0].payments.captures[0];
-                alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                alert(`Transaction ${transaction.status}: ${transaction.id}\n\nYour booking is successful`);
+                document.getElementById("confirmation-order").click();
                 actions.redirect('confirmation.html');
 
 
@@ -249,20 +269,37 @@
         </script>
 
 
-        <script>
+  <script>
             $(function () {
-              $("#datepicker").datetimepicker();
-              $("#datepicker2").datetimepicker();
+              $("#datepicker").datetimepicker({format:'m/d/Y H:i:s'});
+              $("#datepicker2").datetimepicker({format:'m/d/Y H:i:s'});
             });
 
+        </script>
+         <script>
+            document.getElementById('{{datepicker}}').value == 'datepicker'
         </script>
         <script
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg&callback=initMap&v=weekly"
           defer
         ></script>
+        <script>
+                document.getElementById('bookit').addEventListener('click',function(e) {
+                paymentopen()
+                })
 
 
 
+            function paymentopen(){
+                a1 = document.getElementById('datepicker').value;
+                b1 = document.getElementById('datepicker2').value;
+                console.log(a1)
+
+                document.getElementById('paypal-button-container').style.display = "block"
+                document.getElementById('paypal-button-container').style.display = "block"
+                }
+
+        </script>
         <script>
 
 
@@ -271,13 +308,12 @@
                 datecalculate()
                 })
 
-
-
             function datecalculate(){
                 document.getElementById('welcomeDiv').style.display = "block"
                 document.getElementById('bookit').style.display = "block"
                 var a = new Date(document.getElementById('datepicker').value)
                 var b = new Date(document.getElementById('datepicker2').value)
+
 
                 var diff = Math.ceil(Math.abs(b - a) /3600000)
                 var day = Math.floor(diff / 24)
@@ -342,7 +378,7 @@
         <script>
 
 
-            function confirm (){
+            function confirme (){
                 name = '{{product.name}}'
                 var productDetails = {
                         'name': name,
@@ -370,5 +406,6 @@
         </script>
 
     </body>
+
 
 </html>
