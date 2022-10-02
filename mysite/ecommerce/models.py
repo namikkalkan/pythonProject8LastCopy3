@@ -61,10 +61,10 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     date_ordered = models.DateTimeField(auto_now_add=True, null=True)
-    complete = models.BooleanField(default=False)
+    complete = models.BooleanField(default=True)
     rent_from = models.DateTimeField(null=True)
     rent_to = models.DateTimeField(null=True)
-    transaction_id = models.CharField(max_length=200, null=True)
+    id = models.AutoField(primary_key=True)
     def __str__(self):
         return self.product.name
 

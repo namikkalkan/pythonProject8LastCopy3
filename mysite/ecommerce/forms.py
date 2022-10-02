@@ -9,11 +9,18 @@ class DateForm(forms.Form):
 
 class OrderForm(ModelForm):
 
-    rent_from = forms.DateTimeField(widget=forms.DateInput(attrs={'placeholder':'Pick up from'}))
+    #rent_from = forms.DateTimeField()
+    #rent_to = forms.DateTimeField()
     class Meta:
         model = Order
         fields = '__all__'
 
+        widgets = {
+            'customer': forms.TextInput(attrs={'type': 'hidden'}),
+            'product': forms.TextInput(attrs={'type': 'hidden'}),
+            'id': forms.TextInput(attrs={'type': 'hidden'}),
+            'complete': forms.TextInput(attrs={'type': 'hidden'}),
+        }
 class ProductForm(ModelForm):
     class Meta:
         model = Product

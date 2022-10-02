@@ -38,10 +38,17 @@ def indexitem(request,pk):
     product = Product.objects.get(id=pk)
     orders = Order.objects.all()
     customer = request.user.customer
+
     form = OrderForm(initial={'product': product,'customer':customer})
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
+        datepicker = request.POST.get('rent_from')
+        datepicker2 = request.POST.get('rent_to')
+
+
+        #Order.objects.create(customer=customer, product=product, rent_to=datepicker,rent_from=datepicker2 )
+
         if form.is_valid():
 
             form.save()
