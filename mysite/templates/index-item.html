@@ -134,7 +134,7 @@
                                 <div  id="welcomeDiv"  style="display:none; border:solid; border-color:#BFE0E8" >
                                     <span>Rent time is </span><br><b style="font-weight: bold" id="day" ></b> days
                                     <b style="font-weight: bold" id="hour"></b> hours <hr>
-                                    <span>Cost is </span><b  class="cnd-text-green" id="cost" style="color:green "></b> $
+                                    <span>Cost is </span><a  class="cnd-text-green" id="cost" style="color:green "></a> $
                                 </div>
                                 <div>
                                     <button id="bookit"  class="btn btn-info flex-shrink-0" type="button" style=" margin:10px;display:none; float:right;">
@@ -230,18 +230,21 @@
 
 
 
+
          <!-- Replace "test" with your own sandbox Business account app client ID -->
         <script src="https://www.paypal.com/sdk/js?client-id=Ae9St0QVslgRcmrdHie2uPia6B7wkJnIbVTyQfoxuRWoFiMuE7xvOiC6x_biSZHEOCPb3FPH0DO1QNLy&currency=USD"></script>
         <!-- Set up a container element for the button -->
          <script>
-          var totalcost = document.getElementById('cost');
+
+
           paypal.Buttons({
+
             // Sets up the transaction when a payment button is clicked
             createOrder: (data, actions) => {
               return actions.order.create({
                 purchase_units: [{
                   amount: {
-                    value: 'totalcost' // Can also reference a variable or function
+                    value: {{product.price}} // Can also reference a variable or function
                   }
                 }]
               });
@@ -269,24 +272,23 @@
         </script>
 
 
-  <script>
+        <script>
             $(function () {
               $("#datepicker").datetimepicker({format:'m/d/Y H:i:s'});
               $("#datepicker2").datetimepicker({format:'m/d/Y H:i:s'});
             });
 
         </script>
-         <script>
-            document.getElementById('{{datepicker}}').value == 'datepicker'
-        </script>
+
         <script
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg&callback=initMap&v=weekly"
           defer
         ></script>
         <script>
-                document.getElementById('bookit').addEventListener('click',function(e) {
-                paymentopen()
-                })
+
+            document.getElementById('bookit').addEventListener('click',function(e) {
+            paymentopen()
+            })
 
 
 
@@ -295,8 +297,9 @@
                 b1 = document.getElementById('datepicker2').value;
                 console.log(a1)
 
+
                 document.getElementById('paypal-button-container').style.display = "block"
-                document.getElementById('paypal-button-container').style.display = "block"
+
                 }
 
         </script>
@@ -326,8 +329,12 @@
                 console.log(a)
                 var currentTime = new Date();
                 var nname = '{{ product.name }}'
-                var mname = 'surf board'
-                if ( a < b && a> currentTime  ){
+                var p_ava = '{{ product.available_from }}'
+                var p_to = '{{ product.available_to }}'
+                console.log(p_ava)
+
+                if ( a < b && a> currentTime){
+
                     console.log(diff, 'hours')
                     console.log(day)
                     console.log(hours)
