@@ -36,11 +36,12 @@ def index(request):
 def indexitem(request,pk):
     products = Product.objects.all()
     product = Product.objects.get(id=pk)
-    orders = Order.objects.all()
-    customer = request.user.customer
-
-    form = OrderForm(initial={'product': product,'customer':customer})
-
+    orders = Order_list.objects.all()
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        form = OrderForm(initial={'product': product,'customer':customer})
+    else:
+        form = OrderForm(initial={'product': product})
     if request.method == 'POST':
         form = OrderForm(request.POST)
         datepicker = request.POST.get('rent_from')
