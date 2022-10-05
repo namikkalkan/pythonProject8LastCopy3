@@ -110,24 +110,14 @@
                             <div id="dates">
 
                                 </div><br>
-                                 <div class="row">
+                                 <div class="col">
 
                                         {{ form.customer|as_crispy_field }}
-                                      <div id="tarih1" class="form-group col-md-6 mb-0">
-                                        {{ form.rent_from|as_crispy_field }}
-                                       </div>
-
-                                      <div id="tarih2" class="form-group col-md-6 mb-0">
-                                        {{ form.rent_to|as_crispy_field }}
-                                      </div>
+                                        {{ form.product|as_crispy_field }}
+                                       <input type="datetime-local" id="date1"  class="required" value="Pick up date" name="rent_from">
+                                       <input type="datetime-local" id="date2"  class="required" value="Pick up date" name="rent_to">
                                  </div><br> {{ form.product|as_crispy_field }}
                                 <button style="display: none" id="confirmation-order" type="submit" class="btn btn-primary">Confirm booking</button>
-
-
-                                    <input class="form-control text-center me-3" id="datepicker" type="text" placeholder="Start from">
-                                    <input class="form-control text-center me-3" id="datepicker2" type="text" placeholder="until">
-                                    <a id="total"></a>
-
 
 
                             <div class="d-flex justify-content-around">
@@ -276,6 +266,7 @@
             $(function () {
               $("#datepicker").datetimepicker({format:'m/d/Y H:i:s'});
               $("#datepicker2").datetimepicker({format:'m/d/Y H:i:s'});
+
             });
 
         </script>
@@ -314,8 +305,8 @@
             function datecalculate(){
                 document.getElementById('welcomeDiv').style.display = "block"
                 document.getElementById('bookit').style.display = "block"
-                var a = new Date(document.getElementById('datepicker').value)
-                var b = new Date(document.getElementById('datepicker2').value)
+                var a = new Date(document.getElementById('date1').value)
+                var b = new Date(document.getElementById('date2').value)
 
 
                 var diff = Math.ceil(Math.abs(b - a) /3600000)

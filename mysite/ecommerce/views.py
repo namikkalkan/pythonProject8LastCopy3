@@ -57,12 +57,12 @@ def indexitem(request,pk):
         if form.is_valid():
 
             form.save()
-            template = render_to_string( 'confirmation.html', {'name' :request.user.customer})
+            '''template = render_to_string( 'confirmation.html', {'name' :request.user.customer})
             send_mail('dasd',
                          'sadsdsd',
                          settings.EMAIL_HOST_USER,
                          ['n.kalkan5506@gmail.com'],
-                         )
+                         )'''
             return redirect('/')
         else:
             print('hataa')
