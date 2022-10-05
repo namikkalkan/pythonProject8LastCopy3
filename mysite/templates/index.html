@@ -139,44 +139,54 @@
 
         <!--  <marquee behavior="scroll" direction="right" scrollamount="15">   </marquee> -->
         <section class="py-5">
+                <button style="margin-left:410px; " >List view</button><br>
+                <div style='overflow-y:scroll; height:800px ' class="container px-4 px-lg-5 mt-5">
 
-                <div class="container px-4 px-lg-5 mt-5">
-                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
-                        {% for product in products%}
-                            <div class="col mb-5" >
-                                <div class="card h-100"  >
-                                    <!-- Product image-->
+                    <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-3 row-cols-xl-5 justify-content-center">
 
-                                    {% if product.date_created < d %}
-                                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
-                                            New listed</div>
-                                    {% endif %}
-                                    <img class="card-img-top" src="{{product.imageURL}}"  alt="..." />
-                                    <!-- Product details-->
-                                    <div class="card-body p-4">
-                                        <div class="text-center">
-                                            <!-- Product name-->
-                                            <h5 class="fw-bolder" >
-                                                {{product.name}}
-                                            </h5>
-                                            <!-- Product price-->
-                                            ${{product.price|floatformat:2}}
+                            {% for product in products%}
+
+
+                                    <div class="col mb-5" >
+                                        <div class="card h-100"   >
+                                            <!-- Product image-->
+
+                                            {% if product.date_created < d %}
+                                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                                    New listed</div>
+                                            {% endif %}
+                                            <img class="card-img-top" src="{{product.imageURL}}"  alt="..." />
+                                            <!-- Product details-->
+                                            <div class="card-body p-4">
+                                                <div class="text-center">
+                                                    <!-- Product name-->
+                                                    <h5 class="fw-bolder" >
+                                                        {{product.name}}
+                                                    </h5>
+                                                    <!-- Product price-->
+                                                    ${{product.price|floatformat:2}}
+                                                </div>
+                                            </div>
+                                            <!-- Product actions-->
+                                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                                <div class="text-center">
+                                                    <a class="btn btn-outline-dark mt-auto" href="{% url 'indexitem' product.id %}">View</a>
+                                                </div>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- Product actions-->
-                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center">
-                                            <a class="btn btn-outline-dark mt-auto" href="{% url 'indexitem' product.id %}">View</a>
-                                        </div>
 
                                     </div>
-                                </div>
-                            </div>
-                        {% endfor %}
+
+                            {% endfor %}
+
                     </div>
-                </div>
+                     <a href="#" style=" color:black; display:block; margin-left:420px; margin-top:50px ">Check out the list view for more items..</a>
 
+
+                </div>
         </section>
+
 
 
 
@@ -184,7 +194,23 @@
 
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+            <ul style="margin-left:50px">
+                <ul >
+                    <a style="color:white; text-decoration:none" href="#" >Help</a>
+                </ul>
+                <ul >
+                      <a style="color:white;text-decoration:none" href="#" >About us</a>
+                </ul>
+                <ul >
+                      <a style="color:white;text-decoration:none" href="#" >Contact</a>
+                </ul>
+                <ul>
+                      <a style="color:white;text-decoration:none" href="#" >Privacy Policy</a>
+                </ul>
+
+            </ul>
+
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Rent It Mate </p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
