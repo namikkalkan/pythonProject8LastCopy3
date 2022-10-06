@@ -26,7 +26,16 @@
                 <nav>
                     <ul id="menuitems" >
                         <li><a href="">Home</a></li>
-                        <li><a  href="">Categories</a></li>
+                         <li><div class="dropdown">
+                            <a class="dropbtn">Categories
+                              <i class="fa fa-caret-down"></i>
+                            </a>
+                            <div class="dropdown-content">
+                              <a href="{%url 'camping'%}">Camping</a>
+                              <a href="{%url 'surfing'%}">Surfing</a>
+                              <a href="{%url 'kayaking'%}">Kayaking</a>
+                            </div></div>
+                        </li>
                         <li><a href="">About</a></li>
                         <li><a href="">Contact</a></li>
                         {% if request.user.is_authenticated %}
