@@ -35,7 +35,23 @@ def index(request):
 
     context = {'products':products,'customer':customer,'customers':customers,'p_filter':p_filter,'has_filter':has_filter,'d':d}
 
-    return render(request,'index.html', context)
+    return render(request,'index-updated.html', context)
+
+
+def index2(request):
+    customer = Customer.objects.get(name='namik')
+    customers = Customer.objects.all()
+    products = Product.objects.all()
+
+    d = datetime.today() - timedelta(days=3)
+
+    p_filter = ProductFilter(request.GET,queryset=products)
+    products = p_filter.qs
+    has_filter = any(field in request.GET for field in set(p_filter.get_fields()))
+
+    context = {'products':products,'customer':customer,'customers':customers,'p_filter':p_filter,'has_filter':has_filter,'d':d}
+
+    return render(request,'index-updated.html', context)
 
 def indexitem(request,pk):
     products = Product.objects.all()
@@ -69,25 +85,28 @@ def indexitem(request,pk):
             print(form.errors)
 
     context = {'product': product, 'products':products,'orders':orders,'form':form}
-    return render(request,'index-item.html',context)
+    return render(request,'product.html',context)
+
+
+
+
+def camping(request):
+    products = Product.objects.all()
+    context = {'products': products}
+
+    return render(request,'camping2.html', context)
 
 def surfing(request):
     products = Product.objects.all()
     context = {'products': products}
 
-    return render(request,'surfing.html', context)
-
-def camping(request):
-    products = Product.objects.all()
-    context = {'products':products}
-
-    return render(request,'camping.html', context)
+    return render(request,'surfing2.html', context)
 
 def kayaking(request):
     products = Product.objects.all()
     context = {'products':products}
 
-    return render(request,'kayaking.html', context)
+    return render(request,'kayaking2.html', context)
 
 
 @login_required(login_url='login')
@@ -172,19 +191,6 @@ def myAccountUpdate(request, pk):
 
 
 
-
-
-def store(request):
-    context = {}
-    return render(request, 'store.html')
-
-def cart(request):
-    context = {}
-    return render(request, 'cart.html')
-
-def checkout(request):
-    context = {}
-    return render(request, 'checkout.html')
 
 
 

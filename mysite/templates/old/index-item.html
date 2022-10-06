@@ -114,8 +114,10 @@
 
                                         {{ form.customer|as_crispy_field }}
                                         {{ form.product|as_crispy_field }}
-                                       <input type="datetime-local" id="date1"  class="required" value="Pick up date" name="rent_from">
-                                       <input type="datetime-local" id="date2"  class="required" value="Pick up date" name="rent_to">
+                                       <input type="datetime-local" id="date1"  class="required" value="Pick up date" name="rent_from"
+                                              style="border-radius:5px;margin-bottom:10px; padding:5px;">
+                                       <input type="datetime-local" id="date2"  class="required" value="Pick up date" name="rent_to"
+                                                style="border-radius:5px;margin-bottom:10px; padding:5px;">
                                  </div><br> {{ form.product|as_crispy_field }}
                                 <button style="display: none" id="confirmation-order" type="submit" class="btn btn-primary">Confirm booking</button>
 
