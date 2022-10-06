@@ -36,7 +36,7 @@
                 </ul>
             </nav>
             <img src="images/cart.png" width="30px" height="30px">
-            <img class="menu-icon" src="images/menu.png" onclick="menutoggle()" width="30px" height="30px">
+            <img class="menu-icon" src="static/assets/menu.png" onclick="menutoggle()" width="30px" height="30px">
         </div>
     </div>
 
@@ -78,7 +78,7 @@
                             </div>
                             <a id="productname" style="font-size:40px; text-decoration:none; color:black" class="cnd-header cnd-text-xl md:cnd-text-2xl cnd-mb-1">{{product.name}}</a>
                             <div class="fs-5 mb-2">
-                                <span>${{product.price|floatformat:2}}/day</span>
+                                <h4>${{product.price|floatformat:2}}/day</h4>
                             </div><hr><br>
                             <div  class="cnd-flex cnd-flex-wrap" >
                                 <span><b class="cnd-text-black">88</b> trips</span><br>
@@ -140,24 +140,25 @@
                  {% if i.category == product.category and i.id != product.id%}
                     <div class="col-4">
                         <a href="{% url 'indexitem' i.id %}">
-                        <img src="{{i.item_pic.url}}" alt="">
-                        <h4>{{i.name}}</h4>
-                        <div class="rating">
-                            <i class="fa fa-star" ></i>
-                            <i class="fa fa-star" ></i>
-                            <i class="fa fa-star" ></i>
-                            <i class="fa fa-star" ></i>
-                            <i class="fa fa-star-o" ></i>
-                        </div>
-                        <p>{{i.price}}</p>
+                            <img src="{{i.item_pic.url}}" alt="">
+                            <h4>{{i.name}}</h4>
+                            <div class="rating">
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star-o" ></i>
+                            </div>
+                            <p>{{i.price}}</p>
+                        </a>
                     </div>
+
                {% endif %}
            {% endfor %}
         </div>
-
     </div>
 
-    <div class="card card-body" style="overflow-y:auto; height: 500px; overflow: ">
+    <div class="card card-body" style="overflow-y:auto;  overflow: ">
 
            <div id="map" style="height:400px; width:%100"></div>
 
@@ -344,14 +345,19 @@
                 var cost = Number({{product.price}})
                 var cost2 = cost*day
 
-                p_date = '{{product.available_to}}'
-                console.log('{{product.available_to}}')
+                p_date = new Date('{{product.available_to}}')
+                console.log(p_date)
                 console.log(a)
                 var currentTime = new Date();
                 var nname = '{{ product.name }}'
                 var p_ava = '{{ product.available_from }}'
                 var p_to = '{{ product.available_to }}'
                 console.log(p_ava)
+
+                if (p_date > b){
+                    console.log('yeesseee')
+                    }
+
 
                 if ( a < b && a> currentTime){
 

@@ -75,7 +75,6 @@ def indexitem(request,pk):
 
 
 
-
 def camping(request):
     products = Product.objects.all()
     context = {'products': products}
