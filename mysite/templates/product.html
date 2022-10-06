@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
      <link rel="stylesheet" type="text/css" href="{% static 'css/style-updated.css' %}" />
     <!--  this  comes from google.fonts    -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;1,300;1,400;1,600&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <img src="images/logo.png" width="125px">
+                <img src="#" width="125px">
             </div>
             <nav>
                 <ul id="menuitems" >
@@ -45,8 +45,8 @@
                     {% endif%}
                 </ul>
             </nav>
-            <img src="images/cart.png" width="30px" height="30px">
-            <img class="menu-icon" src="static/assets/menu.png" onclick="menutoggle()" width="30px" height="30px">
+            <img src="#" width="30px" height="30px">
+            <img class="menu-icon" src="#" onclick="menutoggle()" width="30px" height="30px">
         </div>
     </div>
 
@@ -178,7 +178,7 @@
         <div class="small-container">
             <div class="row">
                 <div class="col-2">
-                    <img src="images/exclusive.png" class="offer-img" alt="">
+                    <img src="#" class="offer-img" alt="">
                 </div>
                 <div class="col-2">
                     <p> Easy way for passive income </p>
@@ -200,7 +200,7 @@
                     <p>Our app will be available soon </p>
                 </div>
                  <div class="footer-col-2">
-                     <img src="images/logo-white.png" alt="">
+                     <img src="#" alt="">
                      <p>We take responsibility for less  consumint </p>
                 </div>
                 <div class="footer-col-3">
@@ -246,11 +246,16 @@
         smallImg[1].onclick = function (){
                     productMainImg.src = smallImg[1].src;
                     }
-        smallImg[2].onclick = function (){
-                    productMainImg .src = smallImg[2].src;
+        if ( '{{product.item_pic_3}}') {
+            smallImg[2].onclick = function (){
+                        productMainImg .src = smallImg[2].src;
                     }
+                    }
+
+        if ( '{{product.item_pic_4}}') {
         smallImg[3].onclick = function (){
                     productMainImg .src = smallImg[3].src;
+                    }
                     }
 
 
@@ -303,16 +308,16 @@
           }).render('#paypal-button-container');
         </script>
 
-
+<!--
         <script>
-            $(function () {
+            $function () {
               $("#datepicker").datetimepicker({format:'m/d/Y H:i:s'});
               $("#datepicker2").datetimepicker({format:'m/d/Y H:i:s'});
 
             });
 
         </script>
-
+-->
         <script
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg&callback=initMap&v=weekly"
           defer
