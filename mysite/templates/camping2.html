@@ -28,6 +28,16 @@
                         <li><a href="">Categories</a></li>
                         <li><a href="">About</a></li>
                         <li><a href="">Contact</a></li>
+                        <li>
+                            <a class="dropbtn">Categories
+                              <i class="fa fa-caret-down"></i>
+                            </a>
+                            <div class="dropdown-content">
+                              <a href="{%url 'camping'%}">Camping</a>
+                              <a href="{%url 'surfing'%}">Surfing</a>
+                              <a href="{%url 'kayaking'%}">Kayaking</a>
+                            </div>
+                        </li>
                          {% if request.user.is_authenticated %}
                                   <li><a href="">My account</a></li>
                             {% else %}
@@ -75,16 +85,17 @@
                {% if product.category == 'Camping'%}
                     <div class="col-4">
                         <a href="{% url 'indexitem' product.id %}">
-                        <img src="{{product.item_pic.url}}"  alt="">
-                        <h4>   {{product.name}}</h4>
-                        <div class="rating">
-                            <i class="fa fa-star" ></i>
-                            <i class="fa fa-star" ></i>
-                            <i class="fa fa-star" ></i>
-                            <i class="fa fa-star" ></i>
-                            <i class="fa fa-star-half" ></i>
-                        </div>
-                        <p> ${{product.price|floatformat:2}}</p>
+                            <img src="{{product.item_pic.url}}"  alt="">
+                            <h4>   {{product.name}}</h4>
+                            <div class="rating">
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star-half" ></i>
+                            </div>
+                            <p> ${{product.price|floatformat:2}}</p>
+                        </a>
                     </div>
 
                  {% endif %}
@@ -102,10 +113,10 @@
                     <img src="images/exclusive.png" class="offer-img" alt="">
                 </div>
                 <div class="col-2">
-                    <p> Most chosen ones </p>
-                    <h1>bla bla product</h1>
-                    <small>manyak bisey oldu bu alan harbiden bak </small>
-                    <a class="btn" href="">Check out &#x2794;</a>
+                    <p> Easy way for passive income </p>
+                    <h2>List any items that you rarely need</h2>
+                    <p> Start earning now </p>
+                    <a class="btn" href="">Register &#x2794;</a>
                 </div>
             </div>
         </div>
