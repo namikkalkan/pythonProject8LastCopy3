@@ -24,7 +24,7 @@
                 </div>
                 <nav>
                     <ul id="menuitems" >
-                        <li><a href="">Home</a></li>
+                        <li><a href="{%url 'index'%}">Home</a></li>
                         <li><a href="">Categories</a></li>
                         <li><a href="">About</a></li>
                         <li><a href="">Contact</a></li>
@@ -78,6 +78,7 @@
             {% for product in products%}
                {% if product.category == 'Kayaking'%}
                     <div class="col-4">
+                        <a href="{% url 'indexitem' product.id %}">
                         <img src="{{product.item_pic.url}}"  alt="">
                         <h4>   {{product.name}}</h4>
                         <div class="rating">

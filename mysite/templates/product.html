@@ -24,7 +24,7 @@
             </div>
             <nav>
                 <ul id="menuitems" >
-                    <li><a href="{%url 'index2'%}">Home</a></li>
+                    <li><a href="{%url 'index'%}">Home</a></li>
                     <li><a href="">Categories</a></li>
                     <li><a href="">About</a></li>
                     <li><a href="">Contact</a></li>
@@ -132,18 +132,19 @@
         <div class="row">
              {% for i in products %}
                  {% if i.category == product.category and i.id != product.id%}
-            <div class="col-4">
-                <img src="{{i.item_pic.url}}" alt="">
-                <h4>{{i.name}}</h4>
-                <div class="rating">
-                    <i class="fa fa-star" ></i>
-                    <i class="fa fa-star" ></i>
-                    <i class="fa fa-star" ></i>
-                    <i class="fa fa-star" ></i>
-                    <i class="fa fa-star-o" ></i>
-                </div>
-                <p>{{i.price}}</p>
-            </div>
+                    <div class="col-4">
+                        <a href="{% url 'indexitem' i.id %}">
+                        <img src="{{i.item_pic.url}}" alt="">
+                        <h4>{{i.name}}</h4>
+                        <div class="rating">
+                            <i class="fa fa-star" ></i>
+                            <i class="fa fa-star" ></i>
+                            <i class="fa fa-star" ></i>
+                            <i class="fa fa-star" ></i>
+                            <i class="fa fa-star-o" ></i>
+                        </div>
+                        <p>{{i.price}}</p>
+                    </div>
                {% endif %}
            {% endfor %}
         </div>

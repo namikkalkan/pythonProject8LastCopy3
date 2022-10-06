@@ -16,7 +16,7 @@
 </head>
 <body>
 <!-- navbar + rent now... + side img   -->
-    <div class="header">
+    <div class="header" style="background:radial-gradient(#1E9B32,#1E6C9B);">
         <div class="container">
             <div class="navbar">
                 <div class="logo">
@@ -24,7 +24,7 @@
                 </div>
                 <nav>
                     <ul id="menuitems" >
-                        <li><a href="">Home</a></li>
+                        <li><a href="{%url 'index'%}">Home</a></li>
                         <li><a href="">Categories</a></li>
                         <li><a href="">About</a></li>
                         <li><a href="">Contact</a></li>
@@ -45,7 +45,7 @@
                     <a href="" class="btn"> Top 4 camping site &#x2794; </a>
                 </div>
                 <div class="col-2">
-                    <img src="images/camping.jpg">
+                    <img src="static/assets/campingw.png">
                 </div>
             </div>
         </div>
@@ -65,10 +65,6 @@
 
 
 
-
-
-
-
 <!-- featured    -->
 <!-- for star item font awesome 4 cdn - bootstrap copy url paste it head section then fontawsomeicons.com dan iconu bul  -->
     <div class="small-container">
@@ -78,6 +74,7 @@
             {% for product in products%}
                {% if product.category == 'Camping'%}
                     <div class="col-4">
+                        <a href="{% url 'indexitem' product.id %}">
                         <img src="{{product.item_pic.url}}"  alt="">
                         <h4>   {{product.name}}</h4>
                         <div class="rating">
@@ -89,10 +86,11 @@
                         </div>
                         <p> ${{product.price|floatformat:2}}</p>
                     </div>
+
                  {% endif %}
             {% endfor %}
 
-        </div>
+      </div>
 
     </div>
 
