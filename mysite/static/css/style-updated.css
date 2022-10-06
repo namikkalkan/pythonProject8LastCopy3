@@ -464,11 +464,21 @@ max-width: 100%;
 
 }
 
-.dropbtn {
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+
   border: none;
   outline: none;
-  margin-bottom:0px;
+  margin: 0; /* Important for vertical align on mobile phones */
 }
+
+
 
 .dropdown-content {
   display: none;
