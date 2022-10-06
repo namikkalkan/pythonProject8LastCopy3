@@ -1,0 +1,465 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* burasi google.fonts tan alindi ayrica link html e eklendi*/
+body{
+        font-family: 'Poppins', sans-serif;
+        }
+
+
+
+/*NAVBAR + RENT NOW + SIDE IMG KISMI */
+
+.navbar{
+        display:flex;
+        align-items:center;
+        padding:20px;
+}
+
+/*all goes to right side of page - not the logo */
+nav{
+     flex:1;
+     text-align:right;
+     }
+
+/* get rid of dots of  */
+nav ul {
+        display:inline-block;
+        list-style-type:none;
+}
+
+/* make it inline*/
+nav ul li {
+        display :inline-block;
+        margin-right:20px;
+    }
+
+
+/* grey color for the navbar objects*/
+a{
+    text-decoration:none;
+    color:#555;
+    }
+
+
+/*same color for all (will be written p tags */
+p{
+     color:#555;
+    }
+
+/* this is for all top nav bar section*/
+.container {
+        max-width:1300px;
+        margin:auto;
+        padding-left:25px;
+        padding-right:25px;
+}
+
+/* this is the main image part*/
+.row{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    justify-content:space-around;
+}
+
+/* yan yana getiren bu %50 oldu */
+.col-2{
+    flex-basis:50%;
+    min-width:300px;
+}
+
+/*fotoyu sigdirdi*/
+.col-2 img{
+    max-width:100%;
+    padding:50px 0;
+}
+
+/* bu buyuk yazi icin o yaiziyi soldan hizali yapan ise margin: 25 0  daki 0 */
+.col-2 h1{
+    font-size:50px;
+    line-height:60px;
+    margin:25px 0;
+}
+
+/* for the button under the Rent now, start... Yandaki ok isareti toptal.com daki code dan alindi */
+.btn{
+     display:inline-block;
+     background:#ff523b;
+     color:#fff;
+     padding:8px 30px;
+     margin: 30px 0;
+     border-radius:30px;
+     transition: background 0.5s;
+
+}
+
+.btn:hover{
+            background:#563434;
+            }
+
+/*burasi navbar + rent now... + sagdaki img .. tamamini icine alan header div'i*/
+.header {
+    background:radial-gradient(#BCE2C5,#80B4E7);
+}
+
+/* navbar ile alttaki img+rentnow kismi arasini aciyor*/
+.header .row{
+    margin-top:60px;
+}
+
+/*                     CATEGORIES                     */
+
+.categories {
+        margin:70px 0 ;
+}
+
+.col-3{
+        flex-basis:30%;
+        min-width:250px;
+        margin-bottom:30px;
+        }
+
+#cat1 ,#cat2, #cat3 {
+
+            position: relative;}
+
+#l1, #l2, #l3 { position: absolute;
+            color:black;
+            font-size:20px;
+            border-radius:4px;
+            top: 17px;
+            left: 110px;
+            border-style:solid;}
+
+.col-3 img {
+        width:100%;
+        opacity: 0.7;
+}
+
+.small-container {
+        max-width :1080px;
+        margin:auto;
+        padding-left:25px;
+        padding-right:25px;
+}
+
+
+
+/*                     features                     */
+
+.col-4 {
+        flex-basis:25%;
+        padding:10px;
+        min-width:200px;
+        margin-bottom:50px;
+        transition :transform 0.5s;
+}
+
+/* burasi img ne kadar buyuk olursa olsun onu bu img class in icine oturtuyor*/
+.col-4 img{
+        width:100%;
+}
+
+.title {
+    text-align:center;
+    margin:0 auto 80px;
+    position:relative;
+    line-height:60px;
+    color:#555;
+}
+
+/*the line under the featured ... title need sto be relative be careful*/
+.title::after{
+    content:'';
+    background: green;
+    width:200px;
+    height:5px;
+    border-radius:5px;
+    position:absolute;
+    bottom: 0;
+    left:50%;
+    transform:translateX(-50%);
+
+}
+
+/* product title */
+h4{
+    color:#555;
+    font-weight:normal;
+}
+
+/* for the price part */
+.col-4 p {
+    font-size:16px;
+    }
+
+/* star color */
+.rating .fa{
+        color:green;
+        }
+
+/* hover for and also .col-4'e transition eklemek lazim yavas yavas yapmasi icin*/
+.col-4:hover {
+        transform:translateY(-10px);
+}
+
+/*       OFFER          */
+
+.offer {
+    background:radial-gradient(#BCE2C5,#80B4E7);
+    margin-top :50px;
+    padding :30px 0;
+    }
+
+/* image i kucultmek icin etraftaki bosluklari arttirriyor*/
+.col-2 .offer-img {
+        padding:70px;
+        }
+
+h3 {
+    color:#555;
+}
+
+small {
+    color:#555;
+}
+
+/*  ------------------------ testimonial                        */
+
+.testimonial {
+        padding-top:100px;
+}
+
+.testimonial .col-3 {
+            text-align:center;
+            padding :40px 20px;
+            box-shadow :0 0 20px 0px rgba(0,0,0,0.1);
+            cursor : pointer;
+            transition :transform 0.5s;
+}
+
+/* fotografi yuvarlak yapmak 50%*/
+.testimonial .col-3 img {
+        width:50px;
+        margin-top:20px;
+        border-radius:50%;
+        ;
+}
+
+/* hover icin yukariyada transition eklendi*/
+.testimonial .col-3:hover {
+         transform :translateY(-10px);
+}
+
+/* yourm kismi */
+.col-3 p {
+    font-size:16px;
+    margin : 10px 0;
+    color   :#777;
+}
+
+/* baslik kismi */
+.testimonial .col-3 h3 {
+        font-weight : 600;
+        color: #555;
+        font-size:22px;
+}
+
+/*  ------------------------ brands - partners  logo           */
+
+/* diger sction ile arayi aciyoruz*/
+.brands {
+    margin:150px auto;
+}
+
+.col-5 {
+    width:150px;
+}
+
+.col-5 img{
+    width:100%;
+    cursor:pointer;
+    filter:grayscale(100%);
+}
+
+.col-5 img:hover {
+    filter: grayscale(0);
+}
+
+
+/*  ------------------------ footer      */
+
+.footer {
+    background:black;
+    color :#8a8a8a;
+    font-size:16px;
+    padding:60px 20px;
+}
+
+.footer p {
+    color :#8a8a8a;
+}
+
+.footer h3 {
+    color:white;
+    margin-bottom:20px;
+}
+
+.footer-col-1,.footer-col-2,.footer-col-3 {
+            min-width:250px;
+            margin-bottom:20px;
+}
+
+.footer-col-1 {
+      flex-basis:30%;
+        }
+
+.footer-col-2 {
+      flex:1;
+      text-align:center;
+}
+
+.footer-col-2 img {
+        width:180px;
+        margin-bottom:20px;
+}
+
+.footer-col-2 {
+    flex-basis:30%;
+    text-align:center;
+}
+
+ul{
+    list-style-type:none;
+}
+
+.footer hr {
+    border:none;
+    background :#b5b5b5;
+    height:2px;
+    margin:25px 0;
+}
+
+.copyright {
+    text-align:center;
+}
+
+
+/*  to make it responisve menu logosu ekledi ekran kuculunde o calisacak */
+
+.menu-icon {
+        width:28px;
+        margin-left:20px;
+        display:none;
+}
+@media only screen and (max-width:800px) {
+
+    nav ul {
+        position:absolute;
+        top: 70px;
+        left:0;
+        background:#333;
+        width:100%;
+        overflow:hidden;
+        transition:max-height 0.3s ;
+
+    }
+
+    nav ul li {
+        display:block;
+        margin-right:50px;
+        margin-top:10px;
+        margin-bottom:10px;
+
+    }
+    nav ul li a {
+        color:white;
+    }
+    .menu-icon {
+        display:block;
+    }
+
+}
+
+/* media for less than 600px  */
+
+@media only screen and (max-width:600px) {
+
+            .row{
+
+                text-align:center;
+
+            }
+
+            /* yan yana getiren bu %50 oldu */
+            .col-2, .col-3, .col-4{
+                flex-basis:100%;
+
+              }
+
+            .single-product .row {
+                text-align:left;
+            }
+
+            .single-product .col-2 {
+                padding; 20px 0;
+            }
+
+            .single-product h1 {
+                font-size:20px;
+                line-height:20px;
+            }
+
+
+
+}
+
+
+/*        product details page   */
+
+.single-product {
+        margin-top:80px;
+}
+.single-product .col-2 img {
+        padding :0;
+}
+.single-product .col-2 {
+        padding:20px;
+}
+.single-product .col-2 h4{
+        margin :20px 0 ;
+        font-size:24px;
+        font-weight:bold;
+}
+.single-product .col-2 input {
+        display:block;
+        padding:10px;
+        margin-top:20px;
+}
+
+.small-img-row {
+        display:flex;
+        justify-content:space-between;
+}
+
+.small-img-col {
+    flex-basis :24%;
+    cursor:pointer;
+
+}
+
+
+/* MAP img box*/
+
+.box{
+        height: 80px;
+    }
+
+#surf1{
+max-width: 100%;
+        max-height: 100%;
+        display: block;

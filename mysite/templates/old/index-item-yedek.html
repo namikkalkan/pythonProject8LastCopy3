@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+
+
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Item - Start Bootstrap Template</title>
+        <!-- Favicon-->
+
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link rel="stylesheet" type="text/css" href="{% static 'css2/styles.css' %}" />
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+         <!-- XDSoft DateTimePicker -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
+
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-grey" style="background-color: #e3f2fd;">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="{% url 'index' %}">Rent It Mate</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'surfing' %}">Surfing</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{% url 'kayaking' %}">Kayaking</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{% url 'camping' %}">Camping</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                    </ul>
+                    <form class="d-flex">
+                        {% if request.user.is_authenticated %}
+                            <div class="sidebar-brand-text mx-3" style="font-size:150%;">Welcome {{request.user.customer.name}} </div>
+                            <button class="btn btn-outline-dark" type="submit" >
+                                <a href="{% url 'logout' %}" style="text-decoration: none;" >Logout</a>
+                            </button>
+
+                        {% else %}
+                            <button class="btn btn-outline-dark" style=" background:#9A9E9F" type="submit" >
+                                <a href="{% url 'login' %}" style="text-decoration: none; color:black;" >Login</a>
+                            </button>
+                        {% endif%}
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- Product section-->
+        <section class="py-5">
+
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div  class="col-md-4">
+
+                        <img style="border-radius: 25px" class="card-img-top mb-5 mb-md-0" src="{{product.item_pic.url}}" alt="..." />
+
+                    </div>
+                    <div class="col-md-6">
+                        <form method="post" enctype="multipart/form-data">
+                            {% load crispy_forms_tags %}
+                            {% csrf_token %}
+
+
+                            <div hidden>{{product.id}}</div>
+
+                            <div class="cnd-header cnd-header--uppercase cnd-text-sm cnd-mb-1">
+                                {{product.customer.name}}'s
+                            </div>
+                            <a id="productname" style="font-size:40px; text-decoration:none; color:black" class="cnd-header cnd-text-xl md:cnd-text-2xl cnd-mb-1">{{product.name}}</a>
+                            <div class="fs-5 mb-2">
+                                <span>${{product.price|floatformat:2}}/day</span>
+                            </div><hr>
+                            <div  class="cnd-flex cnd-flex-wrap" >
+
+                                <span><b class="cnd-text-black">88</b> trips</span><br>
+                                <b class="cnd-text-green">%95</b>
+                                <span>&nbsp;suggested by users</span>
+                            </div><hr>
+
+                            <p class="mb-2 lead">{{product.description}}</p><hr>
+                            <div id="dates">
+
+                                </div><br>
+                                 <div class="row">
+
+                                        {{ form.customer|as_crispy_field }}
+                                      <div id="tarih1" class="form-group col-md-6 mb-0">
+                                        {{ form.rent_from|as_crispy_field }}
+                                       </div>
+
+                                      <input type="datetime-local" id="date1"  class="required"
+                                                value="Pick up date" name="rent_to">
+                                 </div><br> {{ form.product|as_crispy_field }}
+                                <button style="display: none" id="confirmation-order" type="submit" class="btn btn-primary">Confirm booking</button>
+
+
+                                    <input class="form-control text-center me-3" id="datepicker" type="text" placeholder="Start from">
+                                    <input class="form-control text-center me-3" id="datepicker2" type="text" placeholder="until">
+                                    <a id="total"></a>
+
+
+
+                            <div class="d-flex justify-content-around">
+                                <div  id="welcomeDiv"  style="display:none; border:solid; border-color:#BFE0E8" >
+                                    <span>Rent time is </span><br><b style="font-weight: bold" id="day" ></b> days
+                                    <b style="font-weight: bold" id="hour"></b> hours <hr>
+                                    <span>Cost is </span><a  class="cnd-text-green" id="cost" style="color:green "></a> $
+                                </div>
+                                <div>
+                                    <button id="bookit"  class="btn btn-info flex-shrink-0" type="button" style=" margin:10px;display:none; float:right;">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            <a href="#" style="text-decoration: none; color: black;" >Book</a>
+                                    </button>
+                                    {% if user.is_authenticated %}
+                                        <button id="booknow" class="btn btn-info flex-shrink-0" type="button" style=" margin:10px ; float:right;">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            <a href="#" style="text-decoration: none; color: black;" >Calculate Cost</a><br>
+                                        </button>
+
+
+                                    {% else %}
+                                        <button  class="btn btn-info flex-shrink-0" type="button" style="float:right;">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            <a href="{% url 'register' %}" style="text-decoration: none; color: black;" >Register and book it</a>
+                                        </button>
+
+                                    {% endif %}
+
+                                </div>
+
+
+
+                            </div>
+                            <div style="display:none" id="paypal-button-container"></div>
+
+
+
+                            <button type="submit">Submit test</button>
+
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related items section-->
+
+        <section class="py-5 bg-light">
+            <div class="container px-4 px-lg-5 mt-5">
+                <h4 class="fw-bolder mb-4">Check out other items</h4>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for i in products %}
+                            {% if i.category == product.category and i.id != product.id%}
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="{{i.item_pic.url}}" alt="..." />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h6 class="fw-bolder">{{i.name}}</h6>
+                                            <!-- Product price-->
+                                            ${{i.price|floatformat:2}}/day
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'indexitem' i.id %}">View</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <div style="width:%100; height:400px;" id="map"></div><br><br><br><br>
+
+
+
+        </div>
+
+
+
+
+
+
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+
+
+
+
+         <!-- Replace "test" with your own sandbox Business account app client ID -->
+        <script src="https://www.paypal.com/sdk/js?client-id=Ae9St0QVslgRcmrdHie2uPia6B7wkJnIbVTyQfoxuRWoFiMuE7xvOiC6x_biSZHEOCPb3FPH0DO1QNLy&currency=USD"></script>
+        <!-- Set up a container element for the button -->
+         <script>
+
+
+          paypal.Buttons({
+
+            // Sets up the transaction when a payment button is clicked
+            createOrder: (data, actions) => {
+              return actions.order.create({
+                purchase_units: [{
+                  amount: {
+                    value: {{product.price}} // Can also reference a variable or function
+                  }
+                }]
+              });
+            },
+            // Finalize the transaction after payer approval
+            onApprove: (data, actions) => {
+              return actions.order.capture().then(function(orderData) {
+                // Successful capture! For dev/demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                const transaction = orderData.purchase_units[0].payments.captures[0];
+                alert(`Transaction ${transaction.status}: ${transaction.id}\n\nYour booking is successful`);
+                document.getElementById("confirmation-order").click();
+                actions.redirect('confirmation.html');
+
+
+                // When ready to go live, remove the alert and show a success message within this page. For example:
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('confirmation.html');
+
+
+              });
+            }
+          }).render('#paypal-button-container');
+        </script>
+
+
+        <script>
+            $(function () {
+              $("#datepicker").datetimepicker({format:'m/d/Y H:i:s'});
+              $("#datepicker2").datetimepicker({format:'m/d/Y H:i:s'});
+
+            });
+
+        </script>
+
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg&callback=initMap&v=weekly"
+          defer
+        ></script>
+        <script>
+
+            document.getElementById('bookit').addEventListener('click',function(e) {
+            paymentopen()
+            })
+
+
+
+            function paymentopen(){
+                a1 = document.getElementById('datepicker').value;
+                b1 = document.getElementById('datepicker2').value;
+                console.log(a1)
+
+
+                document.getElementById('paypal-button-container').style.display = "block"
+
+                }
+
+        </script>
+        <script>
+
+
+
+            document.getElementById('booknow').addEventListener('click',function(e) {
+                datecalculate()
+                })
+
+            function datecalculate(){
+                document.getElementById('welcomeDiv').style.display = "block"
+                document.getElementById('bookit').style.display = "block"
+                var a = new Date(document.getElementById('datepicker').value)
+                var b = new Date(document.getElementById('datepicker2').value)
+
+
+                var diff = Math.ceil(Math.abs(b - a) /3600000)
+                var day = Math.floor(diff / 24)
+                var hours = diff%24
+                var cost = Number({{product.price}})
+                var cost2 = cost*day
+
+                p_date = '{{product.available_to}}'
+                console.log('{{product.available_to}}')
+                console.log(a)
+                var currentTime = new Date();
+                var nname = '{{ product.name }}'
+                var p_ava = '{{ product.available_from }}'
+                var p_to = '{{ product.available_to }}'
+                console.log(p_ava)
+
+                if ( a < b && a> currentTime){
+
+                    console.log(diff, 'hours')
+                    console.log(day)
+                    console.log(hours)
+                    document.getElementById("day").innerHTML = day ;
+                    document.getElementById("hour").innerHTML = hours;
+                    document.getElementById("cost").innerHTML = cost2;
+                    }
+                    else {
+                               var x = document.getElementById("welcomeDiv");
+                               x.className = "alert alert-danger";
+                               x.role = "alert";
+                               x.innerHTML = 'Pick up date must be earlier than drop off date 1' ;
+                    }
+                }
+
+
+
+        </script>
+        <script>
+
+            console.log('{{latitudes}}')
+
+            console.log('{{product.customer.latitude}}')
+
+            function initMap() {
+              var lats = '{{ product.customer.latitude }}'
+              var lats2 = parseFloat(lats)
+              var lg = '{{ product.customer.longitude }}'
+              var lg2 = parseFloat(lg)
+              var options = {
+                     zoom :13,
+                     center :{ lat: lats2, lng: lg2 }}
+
+              if (document.getElementById("map")){
+                  var map = new google.maps.Map(document.getElementById("map"), options);
+
+                  // The marker, positioned at Uluru
+                  const marker = new google.maps.Marker({
+                    position: { lat: lats2, lng: lg2 },
+                    map: map,
+              });
+              }}
+
+            window.initMap = initMap;
+
+        </script>
+
+        <script>
+
+
+            function confirme (){
+                name = '{{product.name}}'
+                var productDetails = {
+                        'name': name,
+                        }
+
+
+
+                var url = '/process_order/'
+                fetch(url, {
+                                method:'POST',
+                                headers:{
+                                        'Content-Type' :'application/json',
+                                        'X-CSRFToken':'csrftoken',
+                                        },
+                                body:JSON.stringify({'form':process_order})
+                        })
+                .then ((response) => response.json())
+                .then ((data) => {
+                    console.log('Successful', data );
+                    alert ('Completed')
+                    window.location.href = "{% url 'index' %}"
+                })
+                }
+
+        </script>
+
+    </body>
+
+
+</html>

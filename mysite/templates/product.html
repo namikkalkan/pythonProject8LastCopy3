@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--  first div (header) was for navbar+rent now+ side image, second big div is categories   -->
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" type="text/css" href="{% static 'css/style-updated.css' %}" />
+    <!--  this  comes from google.fonts    -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;1,300;1,400;1,600&display=swap" rel="stylesheet">
+    <!--  this is for star sign    -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<!-- navbar + rent now... + side img   -->
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" width="125px">
+            </div>
+            <nav>
+                <ul id="menuitems" >
+                    <li><a href="{%url 'index2'%}">Home</a></li>
+                    <li><a href="">Categories</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
+                    {% if request.user.is_authenticated %}
+                                  <li><a href="">My account</a></li>
+                            {% else %}
+                               <li><a href="">Login / Register</a></li>
+                    {% endif%}
+                </ul>
+            </nav>
+            <img src="images/cart.png" width="30px" height="30px">
+            <img class="menu-icon" src="images/menu.png" onclick="menutoggle()" width="30px" height="30px">
+        </div>
+    </div>
+
+    <div class="small-container single-product">
+        <div class="row">
+            <div class="col-2">
+                <img id="productMainImg" src="{{product.item_pic.url}}" width="100%" alt="">
+
+                <div class="small-img-row">
+                    <div class="small-img-col">
+                         <img class="smallimg" src="{{product.item_pic.url}}" width="100%" alt="">
+                    </div>
+                    <div class="small-img-col">
+                         <img class="smallimg" src="{{product.item_pic2.url}}" width="100%" alt="">
+                    </div>
+                    <div class="small-img-col">
+                         <img class="smallimg" src="{{product.item_pic3.url}}" width="100%" alt="">
+                    </div>
+                     <div class="small-img-col">
+                         <img class="smallimg" src="{{product.item_pic4.url}}" width="100%" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+
+
+                <form method="post" enctype="multipart/form-data">
+                            {% load crispy_forms_tags %}
+                            {% csrf_token %}
+                            <div hidden>{{product.id}}</div>
+                            <div class="cnd-header cnd-header--uppercase cnd-text-sm cnd-mb-1">
+                                {{product.customer.name}}'s
+                            </div>
+                            <a id="productname" style="font-size:40px; text-decoration:none; color:black" class="cnd-header cnd-text-xl md:cnd-text-2xl cnd-mb-1">{{product.name}}</a>
+                            <div class="fs-5 mb-2">
+                                <span>${{product.price|floatformat:2}}/day</span>
+                            </div><hr><br>
+                            <div  class="cnd-flex cnd-flex-wrap" >
+                                <span><b class="cnd-text-black">88</b> trips</span><br>
+                                <b class="cnd-text-green">%95</b>
+                                <span>&nbsp;suggested by users</span>
+                            </div><hr><br>
+                            <p class="mb-2 lead">{{product.description}}</p>
+                            <div id="dates">
+                                </div><br>
+                                 <div class="col">
+                                        {{ form.customer|as_crispy_field }}
+                                        {{ form.product|as_crispy_field }}
+                                       <input type="datetime-local" id="date1"  class="required" value="Pick up date" name="rent_from"
+                                              style="border-radius:5px;margin-bottom:10px; padding:5px;">
+                                       <input type="datetime-local" id="date2"  class="required" value="Pick up date" name="rent_to"
+                                                style="border-radius:5px;margin-bottom:10px; padding:5px;">
+                                 </div><br> {{ form.product|as_crispy_field }}
+                                <button style="display: none" id="confirmation-order" type="submit" class="btn btn-primary">Confirm booking</button>
+                            <div class="d-flex justify-content-around">
+                                <div  id="welcomeDiv"  style="display:none; border:solid; border-color:#BFE0E8" >
+                                    <span>Rent time is </span><br><b style="font-weight: bold" id="day" ></b> days
+                                    <b style="font-weight: bold" id="hour"></b> hours <hr>
+                                    <span>Cost is </span><a  class="cnd-text-green" id="cost" style="color:green "></a> $
+                                </div>
+                                <div>
+                                    <button id="bookit"  class="btn btn-info flex-shrink-0" type="button" style=" margin:10px;display:none; float:right;">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            <a href="#" style="text-decoration: none; color: black;" >Book</a>
+                                    </button>
+                                    {% if user.is_authenticated %}
+                                        <button id="booknow" class="btn btn-info flex-shrink-0" type="button" style=" margin:10px ; float:right;">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            <a href="#" style="text-decoration: none; color: black;" >Calculate Cost</a><br>
+                                        </button>
+                                    {% else %}
+                                        <button  class="btn btn-info flex-shrink-0" type="button" style="float:right;">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            <a href="{% url 'register' %}" style="text-decoration: none; color: black;" >Register and book it</a>
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div style="display:none" id="paypal-button-container"></div>
+                            <button type="submit">Submit test</button>
+
+                        </form>
+
+            </div>
+        </div>
+    </div>
+
+
+<!-- Other prodcuts    -->
+<!-- for star item font awesome 4 cdn - bootstrap copy url paste it head section then fontawsomeicons.com dan iconu bul  -->
+    <div class="small-container">
+        <h2 class="title ">Related products</h2>
+        <div class="row">
+             {% for i in products %}
+                 {% if i.category == product.category and i.id != product.id%}
+            <div class="col-4">
+                <img src="{{i.item_pic.url}}" alt="">
+                <h4>{{i.name}}</h4>
+                <div class="rating">
+                    <i class="fa fa-star" ></i>
+                    <i class="fa fa-star" ></i>
+                    <i class="fa fa-star" ></i>
+                    <i class="fa fa-star" ></i>
+                    <i class="fa fa-star-o" ></i>
+                </div>
+                <p>{{i.price}}</p>
+            </div>
+               {% endif %}
+           {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="card card-body" style="overflow-y:auto; height: 500px; overflow: ">
+
+           <div id="map" style="height:400px; width:%100"></div>
+
+    </div>
+<!-- offer     -->
+    <div class="offer">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="images/exclusive.png" class="offer-img" alt="">
+                </div>
+                <div class="col-2">
+                    <p> Most chosen ones </p>
+                    <h1>bla bla product</h1>
+                    <small>manyak bisey oldu bu alan harbiden bak </small>
+                    <a class="btn" href="">Check out &#x2794;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- footer     -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download </h3>
+                    <p>Our app will be available soon </p>
+                </div>
+                 <div class="footer-col-2">
+                     <img src="images/logo-white.png" alt="">
+                     <p>We take responsibility for less  consumint </p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful links </h3>
+                    <ul>
+                        <li>About us</li>
+                        <li>Campaign</li>
+                        <li>Contact</li>
+                        <li>Get discount</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright"> Copyright 2022 - Rent It Mate</p>
+        </div>
+    </div>
+
+    <!-- toggle menu     -->
+    <script>
+        var menu = document.getElementById('menuitems');
+        menu.style.maxHeight == '0px';
+
+        function menutoggle(){
+
+            if (menu.style.maxHeight == '0px') {
+                menu.style.maxHeight = '200px';
+                }
+            else {
+                menu.style.maxHeight = '0px';
+            }
+         }
+
+    </script>
+
+
+        <!-- to make small img clickable and big view , buyuk img farkli id aldi, kucuklerin hepsi tek class-id aldi ((  document.getElementssssssss   )) -->
+    <script>
+        var productMainImg = document.getElementById("productMainImg");
+        var smallImg = document.getElementsByClassName("smallimg");
+        smallImg[0].onclick = function (){
+                    productMainImg .src = smallImg[0].src;
+                    }
+        smallImg[1].onclick = function (){
+                    productMainImg .src = smallImg[1].src;
+                    }
+        smallImg[2].onclick = function (){
+                    productMainImg .src = smallImg[2].src;
+                    }
+        smallImg[3].onclick = function (){
+                    productMainImg .src = smallImg[3].src;
+                    }
+
+
+
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+
+
+
+
+         <!-- Replace "test" with your own sandbox Business account app client ID -->
+        <script src="https://www.paypal.com/sdk/js?client-id=Ae9St0QVslgRcmrdHie2uPia6B7wkJnIbVTyQfoxuRWoFiMuE7xvOiC6x_biSZHEOCPb3FPH0DO1QNLy&currency=USD"></script>
+        <!-- Set up a container element for the button -->
+         <script>
+
+
+          paypal.Buttons({
+
+            // Sets up the transaction when a payment button is clicked
+            createOrder: (data, actions) => {
+              return actions.order.create({
+                purchase_units: [{
+                  amount: {
+                    value: {{product.price}} // Can also reference a variable or function
+                  }
+                }]
+              });
+            },
+            // Finalize the transaction after payer approval
+            onApprove: (data, actions) => {
+              return actions.order.capture().then(function(orderData) {
+                // Successful capture! For dev/demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                const transaction = orderData.purchase_units[0].payments.captures[0];
+                alert(`Transaction ${transaction.status}: ${transaction.id}\n\nYour booking is successful`);
+                document.getElementById("confirmation-order").click();
+                actions.redirect('confirmation.html');
+
+
+                // When ready to go live, remove the alert and show a success message within this page. For example:
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('confirmation.html');
+
+
+              });
+            }
+          }).render('#paypal-button-container');
+        </script>
+
+
+        <script>
+            $(function () {
+              $("#datepicker").datetimepicker({format:'m/d/Y H:i:s'});
+              $("#datepicker2").datetimepicker({format:'m/d/Y H:i:s'});
+
+            });
+
+        </script>
+
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg&callback=initMap&v=weekly"
+          defer
+        ></script>
+        <script>
+
+            document.getElementById('bookit').addEventListener('click',function(e) {
+            paymentopen()
+            })
+
+
+
+            function paymentopen(){
+                a1 = document.getElementById('datepicker').value;
+                b1 = document.getElementById('datepicker2').value;
+                console.log(a1)
+
+
+                document.getElementById('paypal-button-container').style.display = "block"
+
+                }
+
+        </script>
+        <script>
+
+
+
+            document.getElementById('booknow').addEventListener('click',function(e) {
+                datecalculate()
+                })
+
+            function datecalculate(){
+                document.getElementById('welcomeDiv').style.display = "block"
+                document.getElementById('bookit').style.display = "block"
+                var a = new Date(document.getElementById('date1').value)
+                var b = new Date(document.getElementById('date2').value)
+
+
+                var diff = Math.ceil(Math.abs(b - a) /3600000)
+                var day = Math.floor(diff / 24)
+                var hours = diff%24
+                var cost = Number({{product.price}})
+                var cost2 = cost*day
+
+                p_date = '{{product.available_to}}'
+                console.log('{{product.available_to}}')
+                console.log(a)
+                var currentTime = new Date();
+                var nname = '{{ product.name }}'
+                var p_ava = '{{ product.available_from }}'
+                var p_to = '{{ product.available_to }}'
+                console.log(p_ava)
+
+                if ( a < b && a> currentTime){
+
+                    console.log(diff, 'hours')
+                    console.log(day)
+                    console.log(hours)
+                    document.getElementById("day").innerHTML = day ;
+                    document.getElementById("hour").innerHTML = hours;
+                    document.getElementById("cost").innerHTML = cost2;
+                    }
+                    else {
+                               var x = document.getElementById("welcomeDiv");
+                               x.className = "alert alert-danger";
+                               x.role = "alert";
+                               x.innerHTML = 'Pick up date must be earlier than drop off date 1' ;
+                    }
+                }
+
+
+
+        </script>
+        <script>
+
+            console.log('{{latitudes}}')
+
+            console.log('{{product.customer.latitude}}')
+
+            function initMap() {
+              var lats = '{{ product.customer.latitude }}'
+              var lats2 = parseFloat(lats)
+              var lg = '{{ product.customer.longitude }}'
+              var lg2 = parseFloat(lg)
+              var options = {
+                     zoom :13,
+                     center :{ lat: lats2, lng: lg2 }}
+
+              if (document.getElementById("map")){
+                  var map = new google.maps.Map(document.getElementById("map"), options);
+
+                  // The marker, positioned at Uluru
+                  const marker = new google.maps.Marker({
+                    position: { lat: lats2, lng: lg2 },
+                    map: map,
+              });
+              }}
+
+            window.initMap = initMap;
+
+        </script>
+
+
+
+
+</body>
+</html>
