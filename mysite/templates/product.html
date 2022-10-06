@@ -49,15 +49,21 @@
                     <div class="small-img-col">
                          <img class="smallimg" src="{{product.item_pic.url}}" width="100%" alt="">
                     </div>
+                    {%if product.item_pic_2 %}
                     <div class="small-img-col">
-                         <img class="smallimg" src="{{product.item_pic2.url}}" width="100%" alt="">
+                         <img class="smallimg" src="{{product.item_pic_2.url}}" width="100%" alt="">
                     </div>
+                     {%endif%}
+                    {%if product.item_pic_3 %}
                     <div class="small-img-col">
-                         <img class="smallimg" src="{{product.item_pic3.url}}" width="100%" alt="">
+                         <img class="smallimg" src="{{product.item_pic_3.url}}" width="100%" alt="">
                     </div>
-                     <div class="small-img-col">
-                         <img class="smallimg" src="{{product.item_pic4.url}}" width="100%" alt="">
+                    {%endif%}
+                    {%if product.item_pic_4 %}
+                    <div class="small-img-col">
+                         <img class="smallimg" src="{{product.item_pic_4.url}}" width="100%" alt="">
                     </div>
+                    {%endif%}
                 </div>
             </div>
             <div class="col-2">
@@ -227,7 +233,7 @@
                     productMainImg .src = smallImg[0].src;
                     }
         smallImg[1].onclick = function (){
-                    productMainImg .src = smallImg[1].src;
+                    productMainImg.src = smallImg[1].src;
                     }
         smallImg[2].onclick = function (){
                     productMainImg .src = smallImg[2].src;
@@ -309,9 +315,7 @@
 
 
             function paymentopen(){
-                a1 = document.getElementById('datepicker').value;
-                b1 = document.getElementById('datepicker2').value;
-                console.log(a1)
+
 
 
                 document.getElementById('paypal-button-container').style.display = "block"
