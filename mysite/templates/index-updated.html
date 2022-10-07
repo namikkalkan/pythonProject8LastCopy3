@@ -39,9 +39,18 @@
                         <li><a href="">About</a></li>
                         <li><a href="">Contact</a></li>
                         {% if request.user.is_authenticated %}
-                                  <li><a href="">My account</a></li>
+                                   <li><div class="dropdown">
+                                        <a class="dropbtn">My Account
+                                          <i class="fa fa-caret-down"></i>
+                                        </a>
+                                        <div class="dropdown-content">
+                                          <a href="{%url 'myitem' customer.id %}">My Items</a>
+                                          <a href="{%url 'listitem' customer.id %}">List an Item</a>
+                                          <a href="{%url 'myaccount' customer.id %}">My Account</a>
+                                        </div></div>
+                                    </li>
                             {% else %}
-                               <li><a href="">Login / Register</a></li>
+                               <li><a href="{% url 'login' %}">Login / Register</a></li>
                         {% endif%}
 
                     </ul>

@@ -52,7 +52,7 @@ def indexitem(request,pk):
         form = OrderForm(request.POST)
         datepicker = request.POST.get('rent_from')
         datepicker2 = request.POST.get('rent_to')
-
+        print('dasdasd')
 
         #Order.objects.create(customer=customer, product=product, rent_to=datepicker,rent_from=datepicker2 )
 
@@ -131,7 +131,7 @@ def updateItem(request, pk):
     form = ProductForm(instance=product)
 
     if request.method == 'POST':
-        form = ProductForm(request.POST, instance=product)
+        form = ProductForm(request.POST, request.FILES,instance=product,)
         if form.is_valid():
             form.save()
             return redirect('/')
