@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--  first div (header) was for navbar+rent now+ side image, second big div is categories   -->
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'css/style-updated.css' %}" />
+    <!--  this  comes from google.fonts    -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;1,300;1,400;1,600&display=swap" rel="stylesheet">
+    <!--  this is for star sign    -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<!-- navbar + rent now... + side img   -->
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="#" width="125px">
+            </div>
+            <nav>
+                <ul id="menuitems" >
+                    <li><a href="{%url 'index'%}">Home</a></li>
+                    <li><a href="">Categories</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
+                    <li><div class="dropdown">
+                        <a class="dropbtn">Categories
+                          <i class="fa fa-caret-down"></i>
+                        </a>
+                        <div class="dropdown-content">
+                          <a href="{%url 'camping'%}">Camping</a>
+                          <a href="{%url 'surfing'%}">Surfing</a>
+                          <a href="{%url 'kayaking'%}">Kayaking</a>
+                        </div></div>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                        <li><div class="dropdown">
+                                        <a class="dropbtn">My Account
+                                          <i class="fa fa-caret-down"></i>
+                                        </a>
+                                        <div class="dropdown-content">
+                                          <a href="{%url 'myitem' customer.id %}">My Items</a>
+                                          <a href="{%url 'listitem' customer.id %}">List an Item</a>
+                                          <a href="{%url 'myaccount' customer.id %}">My Account</a>
+                                        </div></div>
+                                    </li>
+                    {% else %}
+                    <li><a href="">Login / Register</a></li>
+                    {% endif%}
+                </ul>
+            </nav>
+            <img src="#" width="30px" height="30px">
+            <img class="menu-icon" src="#" onclick="menutoggle()" width="30px" height="30px">
+        </div>
+    </div>
+<div>
+     {% block content %}
+
+    {% endblock content %}
+</div>
+</body>
+</html>

@@ -30,6 +30,8 @@ class ProductForm(ModelForm):
 
         widgets = {
         'customer': forms.TextInput(attrs={'type': 'hidden'}),
+        'description': forms.Textarea(attrs={'rows': 4}),
+
     }
 
 class CustomerForm(ModelForm):
