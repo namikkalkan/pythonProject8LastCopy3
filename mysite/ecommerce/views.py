@@ -58,6 +58,7 @@ def indexitem(request,pk):
 
         if form.is_valid():
 
+
             form.save()
             '''template = render_to_string( 'confirmation.html', {'name' :request.user.customer})
             send_mail('dasd',

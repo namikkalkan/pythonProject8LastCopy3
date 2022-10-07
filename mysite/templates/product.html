@@ -124,7 +124,7 @@
                             <button style="display: none" id="confirmation-order" type="submit" class="btn btn-primary">Confirm booking</button>
                             <div class="d-flex justify-content-around">
                                 <div  id="welcomeDiv"  style="display:none; border:solid; border-color:#BFE0E8" >
-                                    <span>Rent time is </span><br><b style="font-weight: bold" id="day" ></b> days
+                                    <span>Rent time is </span><b style="font-weight: bold" id="day" ></b> days
                                     <b style="font-weight: bold" id="hour"></b> hours <hr>
                                     <span>Cost is </span><a  class="cnd-text-green" id="cost" style="color:green "></a> $
                                 </div>
@@ -416,7 +416,7 @@
                                var x = document.getElementById("welcomeDiv");
                                x.className = "alert alert-danger";
                                x.role = "alert";
-                               x.innerHTML = 'Pick up date must be earlier than drop off date 1' ;
+                               x.innerHTML = 'Pick up date must be earlier than drop off date' ;
                     }
                 }
 
