@@ -14,6 +14,7 @@ urlpatterns = [
     path('kayaking', views.kayaking, name='kayaking'),
     path('list-item/<str:pk>/', views.listitem, name='listitem'),
     path('my-items/<str:pk>/', views.myitem, name='myitem'),
+    path('my-booked-items/<str:pk>/', views.mybookeditems, name='mybookeditems'),
     path('update_item/<str:pk>/', views.updateItem, name="updateitem"),
     path('my_account/<str:pk>/', views.myAccount, name="myaccount"),
     path('my_account-update/<str:pk>/', views.myAccountUpdate, name="myaccountupdate"),
@@ -23,6 +24,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
 
 
+    path('confirmation/<str:pk>/', views.confirmation, name='confirmation'),
 
 
 ]

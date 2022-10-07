@@ -125,6 +125,26 @@ def myitem(request, pk):
 
 
 
+
+@login_required(login_url='login')
+def mybookeditems(request, pk):
+
+    customer = Customer.objects.get(id=pk)
+    form = OrderForm(instance=customer)
+    orders = Order_list.objects.all()
+
+    context = {'form':form, 'customer':customer,'orders':orders}
+    return render(request, 'my_booked_items.html', context)
+
+@login_required(login_url='login')
+def confirmation (request, pk):
+    order = Order_list.objects.get(id=pk)
+
+
+    context = { 'order': order}
+    return render(request, 'confirmation.html', context)
+
+
 @login_required(login_url='login')
 def updateItem(request, pk):
     product = Product.objects.get(id=pk)

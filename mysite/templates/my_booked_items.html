@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+{% extends 'old/main.html' %}
+{% load static%}
+{% load crispy_forms_tags %}
+
+
+	{% block content %}
+			<br><br><h3>&emsp;My Booked Items </h3><br>
+			<div class="card card-body" style="overflow-y:auto; ">
+
+				<table class="table table-sm">
+					<tr>
+						<th>Product name</th>
+						<th>Category</th>
+						<th>Price/Daily</th>
+						<th>Person</th>
+						<th>Booked from</th>
+						<th>Booked until</th>
+						<th>Confirm</th>
+					</tr>
+					{% for i in orders %}
+						{% if i.product.customer == request.user.customer %}
+							<tr>
+								<td>{{ i.product }}</td>
+								<td>{{ i.product.category }}</td>
+								<td>{{ i.product.price }}</td>
+								<td>{{ i.customer }}</td>
+								<td>{{ i.rent_from }}</td>
+								<td>{{ i.rent_to }}</td>
+
+								<td><a id="se" onclick="Confirm()" class = "btn btn-sm btn-info" href="{% url 'confirmation' i.id %}">Confirm</a></td>
+								<td><a id="sev" onclick="Confirm2()" class = "btn btn-sm btn-info" href="#">Confirm2</a></td>
+							</tr>
+						{%endif%}
+					{% endfor %}
+
+
+				</table>
+			</div>
+
+
+		<script>
+
+			function Confirm2(){
+					console.log('{{i.customer}}')
+
+			}
+
+
+		</script>
+	{% endblock content %}
+

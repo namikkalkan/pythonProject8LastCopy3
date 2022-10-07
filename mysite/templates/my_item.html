@@ -15,6 +15,7 @@
 						<th>Category</th>
 						<th>Price</th>
 						<th>Listed Date</th>
+						<th>Booking History</th>
 						<th>Update</th>
 						<th>Remove</th>
 					</tr>
@@ -25,6 +26,7 @@
 								<td>{{ i.category }}</td>
 								<td>{{ i.price }}</td>
 								<td>{{ i.available_to }}</td>
+								<td><a  class = "btn btn-sm btn-info" href="{%url 'mybookeditems' i.id  %}">Bookings</a></td>
 								<td><a  class = "btn btn-sm btn-info" href="{% url 'updateitem' i.id%}">Update</a></td>
 								<td><a  class = "btn btn-sm btn-danger" href="#">Delete</a></td>
 							</tr>
