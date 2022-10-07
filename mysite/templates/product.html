@@ -115,7 +115,13 @@
                                                 style="border-radius:5px;margin-bottom:10px; padding:5px;">
                             </div><br> {{ form.product|as_crispy_field }}
 
-
+                            {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
 
 
 
@@ -125,7 +131,7 @@
                             <button style="display: none" id="confirmation-order" type="submit" class="btn btn-primary">Confirm booking</button>
                             <div class="d-flex justify-content-around">
                                 <div  id="welcomeDiv"  style="display:none; border:solid; border-color:#BFE0E8" >
-                                    <span>Rent time is </span><b style="font-weight: bold" id="day" ></b> days
+                                    <span>Rent time is </span><b style="font-weight: bold" id="day" ></b> daysss
                                     <b style="font-weight: bold" id="hour"></b> hours <hr>
                                     <span>Cost is </span><a  class="cnd-text-green" id="cost" style="color:green "></a> $
                                 </div>
@@ -290,38 +296,7 @@
          <script>
 
 
-          paypal.Buttons({
 
-            // Sets up the transaction when a payment button is clicked
-            createOrder: (data, actions) => {
-              return actions.order.create({
-                purchase_units: [{
-                  amount: {
-                    value: {{product.price}} // Can also reference a variable or function
-                  }
-                }]
-              });
-            },
-            // Finalize the transaction after payer approval
-            onApprove: (data, actions) => {
-              return actions.order.capture().then(function(orderData) {
-                // Successful capture! For dev/demo purposes:
-                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                const transaction = orderData.purchase_units[0].payments.captures[0];
-                alert(`Transaction ${transaction.status}: ${transaction.id}\n\nYour booking is successful`);
-                document.getElementById("confirmation-order").click();
-                actions.redirect('confirmation.html');
-
-
-                // When ready to go live, remove the alert and show a success message within this page. For example:
-                // const element = document.getElementById('paypal-button-container');
-                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                // Or go to another URL:  actions.redirect('confirmation.html');
-
-
-              });
-            }
-          }).render('#paypal-button-container');
         </script>
 
 <!--
@@ -412,6 +387,42 @@
                     document.getElementById("day").innerHTML = day ;
                     document.getElementById("hour").innerHTML = hours;
                     document.getElementById("cost").innerHTML = cost2;
+
+                    paypal.Buttons({
+
+                        // Sets up the transaction when a payment button is clicked
+                        createOrder: (data, actions) => {
+                          return actions.order.create({
+                            purchase_units: [{
+                              amount: {
+                                value: {{product.price}} // Can also reference a variable or function
+                              }
+                            }]
+                          });
+                        },
+                        // Finalize the transaction after payer approval
+                        onApprove: (data, actions) => {
+                          return actions.order.capture().then(function(orderData) {
+                            // Successful capture! For dev/demo purposes:
+                            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                            const transaction = orderData.purchase_units[0].payments.captures[0];
+                            alert(`Transaction ${transaction.status}: ${transaction.id}\n\nYour booking is successful`);
+                            document.getElementById("confirmation-order").click();
+                            actions.redirect('confirmation.html');
+
+
+                            // When ready to go live, remove the alert and show a success message within this page. For example:
+                            // const element = document.getElementById('paypal-button-container');
+                            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                            // Or go to another URL:  actions.redirect('confirmation.html');
+
+
+                          });
+                        }
+                      }).render('#paypal-button-container');
+
+
+
                     }
                     else {
                                var x = document.getElementById("welcomeDiv");

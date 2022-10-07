@@ -81,10 +81,14 @@ def indexitem(request,pk):
             if all(avail_list):
 
                 print(data['rent_to'])
+                times= data['rent_to'] - data['rent_from']
+                total_cost = times * product.price
+                messages.info(request, total_cost)
 
-                form.save()
+                '''form.save()'''
+
             else:
-                print('sorry it is taken')
+                messages.info(request, 'Sorry! it is booked, please select another date')
 
             '''template = render_to_string( 'confirmation.html', {'name' :request.user.customer})
             send_mail('dasd',
@@ -92,7 +96,7 @@ def indexitem(request,pk):
                          settings.EMAIL_HOST_USER,
                          ['n.kalkan5506@gmail.com'],
                          )'''
-            return redirect('/')
+
         else:
             print('hataa')
             print(form.errors)
