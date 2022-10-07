@@ -15,12 +15,22 @@ from  django.template.loader import render_to_string
 
 from django.forms.models import model_to_dict
 import json
+from django.views.generic import ListView, FormView
 
 from datetime import datetime, timedelta
 
 
 from django.forms import inlineformset_factory
 # Create your views here.
+
+from .models import  *
+
+
+
+
+
+
+
 
 def index(request):
     customer = Customer.objects.get(name='namik')
@@ -43,6 +53,9 @@ def indexitem(request,pk):
     products = Product.objects.all()
     product = Product.objects.get(id=pk)
     orders = Order_list.objects.all()
+
+    booking_list = Order_list.objects.filter(product=product)
+
     if request.user.is_authenticated:
         customer = request.user.customer
         form = OrderForm(initial={'product': product,'customer':customer})
@@ -52,14 +65,27 @@ def indexitem(request,pk):
         form = OrderForm(request.POST)
         datepicker = request.POST.get('rent_from')
         datepicker2 = request.POST.get('rent_to')
-        print('dasdasd')
+
 
         #Order.objects.create(customer=customer, product=product, rent_to=datepicker,rent_from=datepicker2 )
 
         if form.is_valid():
+            data = form.cleaned_data
+            avail_list = []
+            for booking in booking_list:
+                if booking.rent_from >data['rent_to'] or booking.rent_to <data['rent_from']:
+                     avail_list.append(True)
+                else:
+                    avail_list.append(False)
 
+            if all(avail_list):
 
-            form.save()
+                print(data['rent_to'])
+
+                form.save()
+            else:
+                print('sorry it is taken')
+
             '''template = render_to_string( 'confirmation.html', {'name' :request.user.customer})
             send_mail('dasd',
                          'sadsdsd',
@@ -191,12 +217,6 @@ def myAccountUpdate(request, pk):
 
     context = {'form': form, "customer": customer}
     return render(request, 'my_account_update.html', context)
-
-
-
-
-
-
 
 
 

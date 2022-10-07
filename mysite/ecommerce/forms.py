@@ -45,3 +45,9 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+
+
+class AvailabilityForm(forms.Form):
+    item = forms.TextInput()
+    pick_up= forms.DateTimeField(required=True, input_formats=["%Y-%m-*%dT%H:%M"])
+    drop_off = forms.DateTimeField(required=True, input_formats=["%Y-%m-*%dT%H:%M"])

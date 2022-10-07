@@ -106,6 +106,7 @@
 
                             </div><br>
                             <div class="col">
+                                {% csrf_token %}
                                         {{ form.customer|as_crispy_field }}
                                         {{ form.product|as_crispy_field }}
                                        <input type="datetime-local" id="date1"  class="required"  name="rent_from"
