@@ -12,5 +12,13 @@ class ProductFilter (django_filters.FilterSet):
         fields = ['category']
 
 
-
+    '''def filter_published(self, queryset, name, value):
+        avail_list = []
+        booking_list = Order_list.objects.all()
+        for booking in booking_list:
+            if  booking.rent_to < name:
+                avail_list.append(True)
+            else:
+                avail_list.append(False)
+'''
 
