@@ -54,14 +54,18 @@
 
 
                         {% if request.user.is_authenticated %}
-                                   <li><div class="dropdown">
+                                  <li><div class="dropdown">
                                         <a class="dropbtn">My Account
                                           <i class="fa fa-caret-down"></i>
                                         </a>
                                         <div class="dropdown-content">
-                                          <a href="{%url 'myitem' customer.id %}">My Items</a>
-                                          <a href="{%url 'listitem' customer.id %}">List an Item</a>
-                                          <a href="{%url 'myaccount' customer.id %}">My Account</a>
+                                            <a href="{%url 'myaccount' request.user.customer.id %}">My Account</a>
+                                            <hr class="dropdown-divider" />
+                                          <a href="{%url 'myitem' request.user.customer.id %}">My Items</a>
+                                          <a href="{%url 'listitem' request.user.customer.id %}">List an Item</a>
+                                          <a href="{%url 'mybookeditems' request.user.customer.id %}">My bookings</a>
+                                            <hr class="dropdown-divider" />
+                                            <a href="{%url 'logout' %}">Logout</a>
                                         </div></div>
                                     </li>
                             {% else %}
@@ -85,7 +89,7 @@
 
                 </div>
                 <div class="col-2">
-                    <img src="static/assets/campingw.png">
+                    <img  src="static/assets/logo2.png" >
                 </div>
                 <div style="text-align:center;">
                     <button onclick="myFunction()"style="border-radius:5px;margin-bottom:10px; padding:5px;">Show filters</button>
@@ -310,6 +314,7 @@
                   var x = document.getElementById("filter_div");
                   if (x.style.display === "none") {
                     x.style.display = "block";
+
                   }
                   else {
                     x.style.display = "none";
