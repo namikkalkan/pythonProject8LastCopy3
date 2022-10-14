@@ -1,0 +1,108 @@
+{% extends 'base.html'%}
+
+
+{% block content%}
+    <div class="card card-body" style="overflow-y:auto; height: 500px; overflow: ">
+
+           <div id="map" style="height:400px; width:%100"></div>
+
+    </div>
+
+
+
+
+
+<!-- featured    -->
+<!-- for star item font awesome 4 cdn - bootstrap copy url paste it head section then fontawsomeicons.com dan iconu bul  -->
+    <div class="small-container">
+        <h2 class="title ">Sport & Outdoor</h2>
+        <div class="row">
+
+            {% for product in products%}
+
+               {% if product.category == 'Sport-Outdoor'%}
+                    <div class="col-4">
+                        <a href="{% url 'indexitem' product.id %}">
+                            <img src="{{product.item_pic.url}}"  alt="">
+                            <h4>   {{product.name}}</h4>
+                            <div class="rating">
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star" ></i>
+                                <i class="fa fa-star-half" ></i>
+                            </div>
+                            <p> ${{product.price|floatformat:2}}</p>
+                        </a>
+                    </div>
+
+                 {% endif %}
+
+            {% endfor %}
+
+      </div>
+
+    </div>
+<script>
+
+        function initMap() {
+
+          var options = {
+                 zoom :12,
+                 center :{ lat: -37.815094, lng: 144.959683 }}
+
+          if (document.getElementById("map")){
+              var map = new google.maps.Map(document.getElementById("map"), options);
+
+
+
+              var markers2=[]
+              {% for product in products %}
+                {% if product.category == 'Sport-Outdoor' %}
+                    var lats = '{{ product.customer.latitude }}'
+                    var lats2 = parseFloat(lats)
+                    var lg = '{{ product.customer.longitude }}'
+                    var lg2 = parseFloat(lg)
+                    var mark = {coord:{lat:lats2,lng:lg2},
+                               content : "<div class ='box small' style='float:left'><a href= {% url 'indexitem' product.id %} style = 'font-size:16px; text-decoration:none; color:black'><img id='surf1' src='static/assets/{{product.item_pic}}'></div><div style='float:right; padding: 10px; font-size:14; '><b>{{product.name}}</b><br><b>${{product.price|floatformat:2}}</b>",
+                           }
+                    markers2.push(mark);
+                 {% endif %}
+              {% endfor %}
+
+              function addMarker(props){
+                const marker = new google.maps.Marker({
+                    position: props.coord,
+                    map: map,
+                     });
+                //icon :props.iconImg
+                //check icon
+                if (props.iconImg){
+                    marker.setIcon(props.iconImg);}
+
+                if (props.content){
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: props.content
+                       });
+                    marker.addListener('click', function(){
+                    infoWindow.open(map,marker);
+                    });
+                   }
+                }
+
+
+              // list of markers here
+
+
+              for (var i =0 ; i < markers2.length; i++){
+                //if (markers[i].content =='training') {
+                addMarker(markers2[i]);}
+
+        }
+          }
+
+
+        window.initMap = initMap;
+
+    </script>
+{% endblock %}
