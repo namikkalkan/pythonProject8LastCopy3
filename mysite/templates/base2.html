@@ -94,23 +94,27 @@
     <div class="small-container">
         <h2 class="title ">{{cat_name}}</h2>
         <div class="row">
+            {% if products %}
+                {% for product in products%}
 
-            {% for product in products%}
-                    <div class="col-4">
-                        <a href="{% url 'indexitem' product.id %}">
-                            <img src="{{product.item_pic.url}}"  alt="">
-                            <h4>   {{product.name}}</h4>
-                            <div class="rating">
-                                <i class="fa fa-star" ></i>
-                                <i class="fa fa-star" ></i>
-                                <i class="fa fa-star" ></i>
-                                <i class="fa fa-star" ></i>
-                                <i class="fa fa-star-half" ></i>
-                            </div>
-                            <p> ${{product.price|floatformat:2}}</p>
-                        </a>
-                    </div>
-            {% endfor %}
+                        <div class="col-4">
+                            <a href="{% url 'indexitem' product.id %}">
+                                <img src="{{product.item_pic.url}}"  alt="">
+                                <h4>   {{product.name}}</h4>
+                                <div class="rating">
+                                    <i class="fa fa-star" ></i>
+                                    <i class="fa fa-star" ></i>
+                                    <i class="fa fa-star" ></i>
+                                    <i class="fa fa-star" ></i>
+                                    <i class="fa fa-star-half" ></i>
+                                </div>
+                                <p> ${{product.price|floatformat:2}}</p>
+                            </a>
+                        </div>
+                {% endfor %}
+             {% else %}
+                <h4>Unfortunately there is no match to these criteria</h4>
+            {%endif%}
 
       </div>
 
