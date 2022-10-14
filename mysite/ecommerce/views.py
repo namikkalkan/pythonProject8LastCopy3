@@ -108,34 +108,48 @@ def indexitem(request,pk):
 
 
 def sport_outdoor(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request,'pages/sport_outdoor.html', context)
+    products = Product.objects.filter(category='Sport-Outdoor')
+    cat_name='Sport & Outdoor'
+
+    context = {'products': products,'cat_name':cat_name}
+    return render(request,'base2.html', context)
 
 def drones_cameras(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request,'pages/drones_cameras.html', context)
+    products = Product.objects.filter(category='Drones-cameras')
+    cat_name = 'Drones & Cameras'
+
+    context = {'products': products, 'cat_name': cat_name}
+    return render(request, 'base2.html', context)
 
 def electronics(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request,'pages/electronics.html', context)
+    products = Product.objects.filter(category='Electronics')
+    cat_name = 'Electronics'
+
+    context = {'products': products, 'cat_name': cat_name}
+    return render(request, 'base2.html', context)
 
 def home_appliances(request):
-    products = Product.objects.all()
-    context = {'products':products}
-    return render(request,'pages/home_appliances.html', context)
+    products = Product.objects.filter(category='Home-appliances')
+    cat_name = 'Home appliances'
+
+    context = {'products': products, 'cat_name': cat_name}
+    return render(request, 'base2.html', context)
+
 
 def musical(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request,'pages/musical.html', context)
+    products = Product.objects.filter(category='Musical-equipments')
+    cat_name = 'Musical equipments'
+
+    context = {'products': products, 'cat_name': cat_name}
+    return render(request, 'base2.html', context)
+
 
 def accessories(request):
-    products = Product.objects.all()
-    context = {'products':products}
-    return render(request,'pages/accessories.html', context)
+    products = Product.objects.filter(category='Accessories')
+    cat_name = 'Accessories'
+
+    context = {'products': products, 'cat_name': cat_name}
+    return render(request, 'base2.html', context)
 
 
 def tryin(request):
