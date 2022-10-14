@@ -9,9 +9,9 @@ from django.conf import settings
 urlpatterns = [
     path('', views.index, name='index'),
     path('item/<str:pk>/', views.indexitem, name='indexitem'),
-    path('camping', views.camping, name='camping'),
-    path('surfing', views.surfing, name='surfing'),
-    path('kayaking', views.kayaking, name='kayaking'),
+    path('spor-outdoor', views.spor_outdoor, name='spor_outdoor'),
+    path('electronics', views.electronics, name='electronics'),
+    path('home-appliances', views.home_appliances, name='home_appliances'),
     path('list-item/<str:pk>/', views.listitem, name='listitem'),
     path('my-items/<str:pk>/', views.myitem, name='myitem'),
     path('my-booked-items/<str:pk>/', views.mybookeditems, name='mybookeditems'),

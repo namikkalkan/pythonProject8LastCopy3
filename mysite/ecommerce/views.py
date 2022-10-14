@@ -16,7 +16,7 @@ from  django.template.loader import render_to_string
 from django.forms.models import model_to_dict
 import json
 from django.views.generic import ListView, FormView
-
+from django.db.models import Q
 from datetime import datetime, timedelta
 
 
@@ -106,23 +106,23 @@ def indexitem(request,pk):
 
 
 
-def camping(request):
+def spor_outdoor(request):
     products = Product.objects.all()
     context = {'products': products}
 
-    return render(request,'camping2.html', context)
+    return render(request,'spor_outdoor.html', context)
 
-def surfing(request):
+def electronics(request):
     products = Product.objects.all()
     context = {'products': products}
 
-    return render(request,'surfing2.html', context)
+    return render(request,'electronics.html', context)
 
-def kayaking(request):
+def home_appliances(request):
     products = Product.objects.all()
     context = {'products':products}
 
-    return render(request,'kayaking2.html', context)
+    return render(request,'home_appliances.html', context)
 
 
 @login_required(login_url='login')

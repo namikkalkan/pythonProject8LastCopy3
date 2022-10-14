@@ -31,9 +31,9 @@
                               <i class="fa fa-caret-down"></i>
                             </a>
                             <div class="dropdown-content">
-                              <a href="{%url 'camping'%}">Camping</a>
-                              <a href="{%url 'surfing'%}">Surfing</a>
-                              <a href="{%url 'kayaking'%}">Kayaking</a>
+                              <a href="{%url 'spor_outdoor'%}">Spor & Outdoor</a>
+                              <a href="{%url 'electronics'%}">Electronics</a>
+                              <a href="{%url 'home_appliances'%}">Home Appliances</a>
                             </div></div>
                         </li>
 
@@ -63,9 +63,9 @@
                 <div class="col-2">
                     <h1>Rent now,<br> start your adventure</h1>
                     <p>Instant product sharing  <br>Find the nearest product and pick it up </p>
-                    <a href="{% url 'kayaking' %}" class="btn"> Kayaking  &#x2794; </a>
-                    <a href="{% url 'camping' %}" class="btn"> Camping  &#x2794; </a>
-                    <a href="{% url 'surfing' %}" class="btn"> Surfing &#x2794; </a>
+                    <a href="{% url 'spor_outdoor' %}" class="btn"> Spor & Outdoor  &#x2794; </a>
+                    <a href="{% url 'electronics' %}" class="btn"> Electronics  &#x2794; </a>
+                    <a href="{% url 'home_appliances' %}" class="btn"> Home Appliances &#x2794; </a>
 
                 </div>
                 <div class="col-2">
@@ -84,11 +84,11 @@
                          <form method="get" enctype="multipart/form-data">
                              <div  class="row" style="text-align:center;">
 
-                                 <select  style="border-radius:5px;margin-bottom:10px; padding:5px;" name="category" id="cars">
+                                 <select  style="border-radius:5px;margin-bottom:10px; padding:5px;" name="category" >
                                       <option value="">All Products</option>
-                                      <option value="Camping">Camping</option>
-                                      <option value="Surfing">Surfing</option>
-                                      <option value="Kayaking">Kayaking</option>
+                                      <option value="Camping">Spor & Outdoor</option>
+                                      <option value="Electronics">Electronics </option>
+                                      <option value="Home_appliances">Home Appliances</option>
                                  </select>
                                  <input type="text" class="required"  name="name"
                                               style="border-radius:5px;margin-bottom:10px; padding:5px;">
