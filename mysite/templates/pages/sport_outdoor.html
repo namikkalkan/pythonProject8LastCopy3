@@ -15,12 +15,10 @@
 <!-- featured    -->
 <!-- for star item font awesome 4 cdn - bootstrap copy url paste it head section then fontawsomeicons.com dan iconu bul  -->
     <div class="small-container">
-        <h2 class="title ">Sport & Outdoor</h2>
+        <h2 class="title ">{{cat_name}}</h2>
         <div class="row">
 
             {% for product in products%}
-
-               {% if product.category == 'Sport-Outdoor'%}
                     <div class="col-4">
                         <a href="{% url 'indexitem' product.id %}">
                             <img src="{{product.item_pic.url}}"  alt="">
@@ -35,9 +33,6 @@
                             <p> ${{product.price|floatformat:2}}</p>
                         </a>
                     </div>
-
-                 {% endif %}
-
             {% endfor %}
 
       </div>
@@ -64,7 +59,7 @@
                     var lg = '{{ product.customer.longitude }}'
                     var lg2 = parseFloat(lg)
                     var mark = {coord:{lat:lats2,lng:lg2},
-                               content : "<div class ='box small' style='float:left'><a href= {% url 'indexitem' product.id %} style = 'font-size:16px; text-decoration:none; color:black'><img id='surf1' src='static/assets/{{product.item_pic}}'></div><div style='float:right; padding: 10px; font-size:14; '><b>{{product.name}}</b><br><b>${{product.price|floatformat:2}}</b>",
+                               content : "<div class ='box small' style='float:left'><a href= {% url 'indexitem' product.id %} style = 'font-size:16px; text-decoration:none; color:black'><img id='surf1' src='{{product.item_pic.url}}'></div><div style='float:right; padding: 10px; font-size:14; '><b>{{product.name}}</b><br><b>${{product.price|floatformat:2}}</b>",
                            }
                     markers2.push(mark);
                  {% endif %}
