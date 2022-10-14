@@ -21,19 +21,35 @@
         <div class="container">
             <div class="navbar">
                 <div class="logo">
-                    <img src="static/assets/logo.png" width="125px">
+                    <a href="{% url 'index' %}">
+                       <img  src="static/assets/logo2.png" width="125px">
+                   </a>
                 </div>
                 <nav>
                     <ul id="menuitems" >
-                        <li><a href="">Home</a></li>
+                        <li><div class="dropdown">
+                            <a class="dropbtn">Learn more
+                              <i class="fa fa-caret-down"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="">How to rent an item</a>
+                                <a href="">How to list an item</a>
+                                <a href="">How it works</a>
+                                <a href="">About us</a>
+
+                            </div></div>
+                        </li>
                          <li><div class="dropdown">
                             <a class="dropbtn">Categories
                               <i class="fa fa-caret-down"></i>
                             </a>
                             <div class="dropdown-content">
-                              <a href="{%url 'spor_outdoor'%}">Spor & Outdoor</a>
-                              <a href="{%url 'electronics'%}">Electronics</a>
-                              <a href="{%url 'home_appliances'%}">Home Appliances</a>
+                                <a href="{%url 'sport_outdoor'%}">Sport & Outdoor</a>
+                                <a href="{%url 'drone_cameras'%}">Drone & Cameras</a>
+                                <a href="{%url 'electronics'%}">Electronics</a>
+                                <a href="{%url 'home_appliances'%}">Home Appliances</a>
+                                <a href="{%url 'musical'%}">Musical</a>
+                                <a href="{%url 'accessories'%}">Accessories</a>
                             </div></div>
                         </li>
 
@@ -63,19 +79,22 @@
                 <div class="col-2">
                     <h1>Rent now,<br> start your adventure</h1>
                     <p>Instant product sharing  <br>Find the nearest product and pick it up </p>
-                    <a href="{% url 'spor_outdoor' %}" class="btn"> Spor & Outdoor  &#x2794; </a>
-                    <a href="{% url 'electronics' %}" class="btn"> Electronics  &#x2794; </a>
-                    <a href="{% url 'home_appliances' %}" class="btn"> Home Appliances &#x2794; </a>
+                    <a href="{% url 'sport_outdoor' %}" class="btn"> Sport & Outdoor  &#x2794; </a>
+                    <a href="{% url 'drone_cameras' %}" class="btn"> Drone & Cameras  &#x2794; </a>
+                    <a href="{% url 'electronics' %}" class="btn"> Electronics &#x2794; </a>
+                    <a href="{% url 'home_appliances' %}" class="btn"> Home Appliances  &#x2794; </a>
+                    <a href="{% url 'musical' %}" class="btn"> Musical   &#x2794; </a>
+                    <a href="{% url 'accessories' %}" class="btn"> Accessories &#x2794; </a>
 
                 </div>
                 <div class="col-2">
                     <img src="static/assets/campingw.png">
                 </div>
-                <h3 style="text-align:center; ">Check the map for nearest items</h3>
+                <div style="text-align:center;">
+                    <button onclick="myFunction()"style="border-radius:5px;margin-bottom:10px; padding:5px;">Show filters</button>
+                </div>
             </div><hr><br>
-            <div style="text-align:center;">
-                <button onclick="myFunction()"style="border-radius:5px;margin-bottom:10px; padding:5px;">Show filters</button>
-            </div>
+
 
             <div style="display:none" id="filter_div" class="row">
                 <div class="col">
@@ -86,11 +105,14 @@
 
                                  <select  style="border-radius:5px;margin-bottom:10px; padding:5px;" name="category" >
                                       <option value="">All Products</option>
-                                      <option value="Camping">Spor & Outdoor</option>
+                                      <option value="Sport-Outdoor">Spor & Outdoor</option>
+                                     <option value="Drones-cameras">Drones & Cameras</option>
                                       <option value="Electronics">Electronics </option>
                                       <option value="Home_appliances">Home Appliances</option>
+                                     <option value="Musical-equipments">Musical equipments </option>
+                                      <option value="Accessories">Accessories</option>
                                  </select>
-                                 <input type="text" class="required"  name="name"
+                                 <input type="text" class="required" placeholder="Drone.." name="name"
                                               style="border-radius:5px;margin-bottom:10px; padding:5px;">
                                  <input type="datetime-local" id="date1"  class="required"  name="start_date"
                                               style="border-radius:5px;margin-bottom:10px; padding:5px;">
@@ -258,7 +280,7 @@
                 </div>
             </div>
             <hr>
-            <p class="copyright"> Copyright 2022 - Rent It Mate</p>
+            <p class="copyright"> Copyright 2022 - Rent for a day</p>
         </div>
     </div>
 

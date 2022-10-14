@@ -23,9 +23,13 @@ class Customer (models.Model):
 
 
 class Product(models.Model):
-    CATEGORY = (('Camping', 'Camping'),
-                ('Surfing', 'Surfing'),
-                ('Kayaking', 'Kayaking'),
+    CATEGORY = (
+                ('Sport-Outdoor', 'Sport & Outdoor'),
+                ('Drones-cameras', 'Drones & cameras'),
+                ('Electronics', 'Electronics'),
+                ('Home-appliances', 'Home appliances'),
+                ('Musical-equipments', 'Musical equipments'),
+                ('Accessories','Accessories'),
                 )
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=200, null=True)

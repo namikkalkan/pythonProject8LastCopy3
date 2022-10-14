@@ -35,6 +35,7 @@ nav ul {
 nav ul li {
         display :inline-block;
         margin-right:20px;
+        margin-bottom:0px;
     }
 
 
@@ -88,10 +89,10 @@ p{
 /* for the button under the Rent now, start... Yandaki ok isareti toptal.com daki code dan alindi */
 .btn{
      display:inline-block;
-     background:#ff523b;
+     background:#39ac73;
      color:#fff;
      padding:8px 30px;
-     margin: 30px 0;
+     margin: 5px 0;
      border-radius:30px;
      transition: background 0.5s;
 

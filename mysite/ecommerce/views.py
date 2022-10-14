@@ -106,23 +106,43 @@ def indexitem(request,pk):
 
 
 
-def spor_outdoor(request):
+
+def sport_outdoor(request):
     products = Product.objects.all()
     context = {'products': products}
+    return render(request,'pages/sport_outdoor.html', context)
 
-    return render(request,'spor_outdoor.html', context)
+def drones_cameras(request):
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request,'pages/drones_cameras.html', context)
 
 def electronics(request):
     products = Product.objects.all()
     context = {'products': products}
-
-    return render(request,'electronics.html', context)
+    return render(request,'pages/electronics.html', context)
 
 def home_appliances(request):
     products = Product.objects.all()
     context = {'products':products}
+    return render(request,'pages/home_appliances.html', context)
 
-    return render(request,'home_appliances.html', context)
+def musical(request):
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request,'pages/musical.html', context)
+
+def accessories(request):
+    products = Product.objects.all()
+    context = {'products':products}
+    return render(request,'pages/accessories.html', context)
+
+
+def tryin(request):
+    products = Product.objects.all()
+    customers = Customer.objects.all()
+    context = {'products': products,'customers':customers}
+    return render(request,'tryin.html', context)
 
 
 @login_required(login_url='login')

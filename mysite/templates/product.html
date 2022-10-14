@@ -19,29 +19,56 @@
 
     <div class="container">
         <div class="navbar">
-            <div class="logo">
-                <img src="#" width="125px">
-            </div>
+           <div class="logo">
+                    <a href="{% url 'index' %}">
+                       <img  src="{% static 'assets/logo2.png' %}" width="125px">
+                   </a>
+           </div>
             <nav>
                 <ul id="menuitems" >
-                    <li><a href="{%url 'index'%}">Home</a></li>
-                    <li><a href="">Categories</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><div class="dropdown">
+                            <a class="dropbtn">Learn more
+                              <i class="fa fa-caret-down"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="">How to rent an item</a>
+                                <a href="">How to list an item</a>
+                                <a href="">How it works</a>
+                                <a href="">About us</a>
+
+                            </div></div>
+                    </li>
                     <li><div class="dropdown">
                         <a class="dropbtn">Categories
                           <i class="fa fa-caret-down"></i>
                         </a>
                         <div class="dropdown-content">
-                          <a href="{%url 'camping'%}">Camping</a>
-                          <a href="{%url 'surfing'%}">Surfing</a>
-                          <a href="{%url 'kayaking'%}">Kayaking</a>
+                                <a href="{%url 'sport_outdoor'%}">Spor & Outdoor</a>
+                                <a href="{%url 'drone_cameras'%}">Drone & Cameras</a>
+                                <a href="{%url 'electronics'%}">Electronics</a>
+                                <a href="{%url 'home_appliances'%}">Home Appliances</a>
+                                <a href="{%url 'musical'%}">Musical</a>
+                                <a href="{%url 'accessories'%}">Accessories</a>
                         </div></div>
                     </li>
+
                     {% if request.user.is_authenticated %}
-                    <li><a href="">My account</a></li>
-                    {% else %}
-                    <li><a href="">Login / Register</a></li>
+                                   <li><div class="dropdown">
+                                        <a class="dropbtn">My Account
+                                          <i class="fa fa-caret-down"></i>
+                                        </a>
+                                        <div class="dropdown-content">
+                                            <a href="{%url 'myaccount' request.user.customer.id %}">My Account</a>
+                                            <hr class="dropdown-divider" />
+                                          <a href="{%url 'myitem' request.user.customer.id %}">My Items</a>
+                                          <a href="{%url 'listitem' request.user.customer.id %}">List an Item</a>
+                                          <a href="{%url 'mybookeditems' request.user.customer.id %}">My bookings</a>
+                                            <hr class="dropdown-divider" />
+                                            <a href="{%url 'logout' %}">Logout</a>
+                                        </div></div>
+                                    </li>
+                            {% else %}
+                               <li><a href="{% url 'login' %}">Login / Register</a></li>
                     {% endif%}
                 </ul>
             </nav>
@@ -95,7 +122,7 @@
                                 <b class="cnd-text-green">%95</b>
                                 <span>&nbsp;suggested by users</span>
                             </div><hr><br>
-                            <p class="mb-2 lead">{{product.description}}</p>
+                            <p class="mb-2 lead">{{product.description|truncatewords:"15"}}</p>
                             <div id="dates">
 
 
@@ -206,7 +233,11 @@
                     <p> Easy way for passive income </p>
                     <h2>List any items that you rarely need</h2>
                     <p> Start earning now </p>
-                    <a class="btn" href="">Register &#x2794;</a>
+                    {% if request.user.is_authenticated %}
+                                   <a class="btn" href="{%url 'listitem' request.user.customer.id %}">List an item &#x2794;</a>
+                            {% else %}
+                               <a class="btn" href="{% url 'login' %}">Register &#x2794;</a>
+                    {% endif%}
                 </div>
             </div>
         </div>
