@@ -91,12 +91,10 @@
                 <div class="col-2">
                     <img  src="static/assets/logo2.png" >
                 </div>
-                <div style="text-align:center;">
-                    <button onclick="myFunction()"style="border-radius:5px;margin-bottom:10px; padding:5px;">Show filters</button>
-                </div>
+
             </div><hr><br>
 
-            <form method="post" enctype="multipart/form-data">
+            <form style="text-align:center;" method="post" enctype="multipart/form-data">
                             {% load crispy_forms_tags %}
                             {% csrf_token %}
               <select  style="border-radius:5px;margin-bottom:10px; padding:5px;" name="category" >
@@ -112,8 +110,7 @@
                                               style="border-radius:5px;margin-bottom:10px; padding:5px;">
                 <input type="text" class="required" placeholder="2022-10-19 10:00" name="drop_off"
                                               style="border-radius:5px;margin-bottom:10px; padding:5px;">
-                <input type="text" class="required" placeholder="3000" name="post_code"
-                                              style="border-radius:5px;margin-bottom:10px; padding:5px;">
+
                 <button style="border-radius:5px;margin-bottom:10px; padding:5px;" type="submit">Search</button>
             </form>
 
