@@ -49,6 +49,7 @@ class CreateUserForm(UserCreationForm):
 
 class AvailabilityForm(forms.Form):
     CATEGORY = (
+        ('','All Products'),
         ('Sport-Outdoor', 'Sport & Outdoor'),
         ('Drones-cameras', 'Drones & cameras'),
         ('Electronics', 'Electronics'),
@@ -59,5 +60,5 @@ class AvailabilityForm(forms.Form):
 
     pick_up= forms.DateTimeField(required=False, input_formats=["%Y-%m-%dT%H:%M"])
     drop_off = forms.DateTimeField(required=False, input_formats=["%Y-%m-%dT%H:%M"])
-    category = forms.ChoiceField(choices=CATEGORY)
+    category = forms.ChoiceField(required=False,choices=CATEGORY)
     item = forms.Textarea()

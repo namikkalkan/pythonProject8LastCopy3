@@ -45,7 +45,10 @@ def index(request):
         form = AvailabilityForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            products = Product.objects.filter(category=data['category'])
+            if data['category']:
+                products = Product.objects.filter(category=data['category'])
+            else:
+                products =Product.objects.all()
             if data['pick_up'] and data['drop_off']:
                 for product in products:
                         if check_availability(product,data['pick_up'],data['drop_off']):
