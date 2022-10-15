@@ -96,7 +96,12 @@
                 </div>
             </div><hr><br>
 
-
+            <form method="post" enctype="multipart/form-data">
+                            {% load crispy_forms_tags %}
+                            {% csrf_token %}
+                {{form}}
+                <button type="submit">Go</button>
+            </form>
             <div style="display:none" id="filter_div" class="row">
                 <div class="col">
                     <div class="card card-body">

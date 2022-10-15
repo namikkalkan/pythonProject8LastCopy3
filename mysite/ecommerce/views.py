@@ -1,14 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from PIL import Image
-from .models import *
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decoraters import *
 from django.contrib.auth.models import Group
 from .forms import *
 from  .filters import *
-
 from django.core.mail import send_mail
 from  django.conf import settings
 from  django.template.loader import render_to_string
@@ -19,8 +16,7 @@ from django.views.generic import ListView, FormView
 from django.db.models import Q
 from datetime import datetime, timedelta
 
-
-from django.forms import inlineformset_factory
+from .availability import check_availability
 # Create your views here.
 
 from .models import  *
@@ -42,8 +38,24 @@ def index(request):
     p_filter = ProductFilter(request.GET,queryset=products)
     products = p_filter.qs
     has_filter = any(field in request.GET for field in set(p_filter.get_fields()))
+    form = AvailabilityForm()
+    books = Order_list.objects.all()
+    available_products = []
+    if request.method == 'POST':
+        form = AvailabilityForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            products = Product.objects.filter(category=data['category'])
+            if data['pick_up'] and data['drop_off']:
+                for product in products:
+                        if check_availability(product,data['pick_up'],data['drop_off']):
+                            available_products.append(product)
+                products=available_products
 
-    context = {'products':products,'customer':customer,'customers':customers,'p_filter':p_filter,'has_filter':has_filter,'d':d}
+
+
+
+    context = {'available_products':available_products,'form':form,'products':products,'customer':customer,'customers':customers,'p_filter':p_filter,'has_filter':has_filter,'d':d}
 
     return render(request,'index-updated.html', context)
 
