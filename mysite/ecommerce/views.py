@@ -272,7 +272,7 @@ def myAccountUpdate(request, pk):
             form.save()
             return redirect('/')
 
-    context = {'form': form, "customer": customer}
+    context = {'form': form, "customer": customer, 'google_maps_api_key': settings.GOOGLE_API_KEY}
     return render(request, 'my_account_update.html', context)
 
 
