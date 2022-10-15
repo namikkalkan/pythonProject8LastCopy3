@@ -61,4 +61,4 @@ class AvailabilityForm(forms.Form):
     pick_up= forms.DateTimeField(required=False, input_formats=["%Y-%m-%dT%H:%M"])
     drop_off = forms.DateTimeField(required=False, input_formats=["%Y-%m-%dT%H:%M"])
     category = forms.ChoiceField(required=False,choices=CATEGORY)
-    item = forms.Textarea()
+    post_code = forms.CharField(required=False)

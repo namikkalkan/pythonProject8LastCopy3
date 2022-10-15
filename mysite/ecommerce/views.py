@@ -45,7 +45,11 @@ def index(request):
         form = AvailabilityForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            if data['category']:
+            if data['category'] and data['post_code'] :
+                products = Product.objects.filter(Q(category=data['category']) & Q(customer__post_code=data['post_code']))
+            elif data['post_code'] :
+                products = Product.objects.filter(customer__post_code=data['post_code'])
+            elif data['category'] :
                 products = Product.objects.filter(category=data['category'])
             else:
                 products =Product.objects.all()
