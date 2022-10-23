@@ -62,3 +62,8 @@ class AvailabilityForm(forms.Form):
     drop_off = forms.DateTimeField(required=False, input_formats=["%Y-%m-%dT%H:%M"])
     category = forms.ChoiceField(required=False,choices=CATEGORY)
     post_code = forms.CharField(required=False)
+
+    widgets = {
+        'pick_up': forms.DateTimeInput()
+
+    }
