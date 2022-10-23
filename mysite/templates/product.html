@@ -184,9 +184,22 @@
 
             </div>
         </div>
+        <div>
+            {% for i in orders %}
+                    {% if i.product.name == product.name and i.rent_from >datetime.datetime.now() %}
+
+                            <a> {{i.rent_from}}</a>
+                            <a> {{i.rent_to}}</a>
+
+                    {%endif%}
+            {% endfor %}
+        </div>
     </div>
 
+    <div>
 
+
+    </div>
 <!-- Other prodcuts    -->
 <!-- for star item font awesome 4 cdn - bootstrap copy url paste it head section then fontawsomeicons.com dan iconu bul  -->
     <div class="small-container">
