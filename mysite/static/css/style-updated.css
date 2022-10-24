@@ -353,7 +353,7 @@ ul{
 /*  to make it responisve menu logosu ekledi ekran kuculunde o calisacak */
 
 .menu-icon {
-        width:28px;
+        width:48px;
         margin-left:20px;
         display:none;
 }
@@ -361,7 +361,7 @@ ul{
 
     nav ul {
         position:absolute;
-        top: 70px;
+        top: 130px;
         left:0;
         background:#333;
         width:100%;
