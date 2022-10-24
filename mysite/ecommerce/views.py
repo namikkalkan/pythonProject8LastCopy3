@@ -231,6 +231,7 @@ def confirmation (request, pk):
 
 @login_required(login_url='login')
 def updateItem(request, pk):
+    customer = Customer.objects.get(id=pk)
     product = Product.objects.get(id=pk)
     form = ProductForm(instance=product)
 
@@ -240,7 +241,7 @@ def updateItem(request, pk):
             form.save()
             return redirect('/')
 
-    context = {'form': form, "item": product, "order_c": product.customer}
+    context = {'customer':customer,'form': form, "item": product, "order_c": product.customer}
     return render(request, 'update-item.html', context)
 
 
