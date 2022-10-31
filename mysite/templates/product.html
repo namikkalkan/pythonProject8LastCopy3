@@ -154,11 +154,7 @@
 
                             <button style="display: none" id="confirmation-order" type="submit" class="btn btn-primary">Confirm booking</button>
                             <div class="d-flex justify-content-around">
-                                <div  id="welcomeDiv"  style="display:none; border:solid; border-color:#BFE0E8" >
-                                    <span>Rent time is </span><b style="font-weight: bold" id="day" ></b> daysss
-                                    <b style="font-weight: bold" id="hour"></b> hours <hr>
-                                    <span>Cost is </span><a  class="cnd-text-green" id="cost" style="color:green "></a> $
-                                </div>
+
                                 <div>
                                     <button id="bookit"  class="btn btn-info flex-shrink-0" type="button" style=" margin:10px;display:none; float:right;">
                                             <i class="bi-cart-fill me-1"></i>
@@ -176,24 +172,22 @@
                                         </button>
                                     {% endif %}
                                 </div>
+
                             </div>
                             <div style="display:none" id="paypal-button-container"></div>
                             <button type="submit">Submit test</button>
+                            <div  id="welcomeDiv"  style="display:none; border:solid; border-color:#BFE0E8" >
+                                    <span>Rent time is :</span><a style="font-weight: bold" id="day" ></a><span> daysss</span>
+                                    <b style="font-weight: bold" id="hour">hours</b>
+                                    <hr>
+                                    <span>Cost is </span><a  class="cnd-text-green" id="cost" style="color:green "></a> $
+                            </div>
 
                 </form>
 
             </div>
         </div>
-        <div>
-            {% for i in orders %}
-                    {% if i.product.name == product.name and i.rent_from >datetime.datetime.now() %}
 
-                            <a> {{i.rent_from}}</a>
-                            <a> {{i.rent_to}}</a>
-
-                    {%endif%}
-            {% endfor %}
-        </div>
     </div>
 
     <div>
