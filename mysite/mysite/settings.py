@@ -153,7 +153,7 @@ GOOGLE_API_KEY = 'AIzaSyBQrxl-TFun6FZ4ZS4Ss2yocmC8uga8OBg'
 
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST ='smtp.gmail.com'
-EMAIL_HOST_USER = 'mkare3562@gmail.com'
-EMAIL_HOST_PASSWORD = 'Manik.111'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 
