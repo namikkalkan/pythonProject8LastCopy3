@@ -111,7 +111,7 @@ def indexitem(request,pk):
                 account_sid = 'AC349835a3e0964560965fc51eb3a3c48c'
                 auth_token = 'f054ada37e070dad992f4c47334f1ee6'
                 client = Client(account_sid, auth_token)
-                template = render_to_string('email_template.html',
+                template_user = render_to_string('sms_template_user.html',
                                             {'name': request.user.customer,
                                              'p_name':product.name,
                                              'p_date':data['rent_from'],
@@ -121,7 +121,22 @@ def indexitem(request,pk):
 
                 client.messages \
                     .create(
-                    body=template,
+                    body=template_user,
+                    from_='+12538678134',
+                    to=request.user.customer.phone
+                )
+
+                template_owner = render_to_string('sms_template_owner.html',
+                                                 {'name': request.user.customer,
+                                                  'p_name': product.name,
+                                                  'p_date': data['rent_from'],
+                                                  'd_date': data['rent_to'],
+                                                  'link': 'https://www.rentforaday.com.au/',
+                                                  })
+
+                client.messages \
+                    .create(
+                    body=template_owner,
                     from_='+12538678134',
                     to=request.user.customer.phone
                 )
