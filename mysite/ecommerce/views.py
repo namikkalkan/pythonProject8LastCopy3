@@ -115,7 +115,9 @@ def indexitem(request,pk):
                                             {'name': request.user.customer,
                                              'p_name':product.name,
                                              'p_date':data['rent_from'],
-                                             'd_date': data['rent_to']})
+                                             'd_date': data['rent_to'],
+                                             'link':'https://www.rentforaday.com.au/',
+                                             })
 
                 client.messages \
                     .create(
