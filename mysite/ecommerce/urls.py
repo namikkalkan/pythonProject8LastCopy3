@@ -17,7 +17,7 @@ urlpatterns = [
     path('musical/', views.musical, name='musical'),
     path('accessories/', views.accessories, name='accessories'),
 
-    path('tryin/', views.tryin, name='tryin'),
+    path('faq/', views.tryin, name='tryin'),
 
 
     path('list-item/<str:pk>/', views.listitem, name='listitem'),
