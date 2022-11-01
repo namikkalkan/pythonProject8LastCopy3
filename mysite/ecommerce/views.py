@@ -127,7 +127,7 @@ def indexitem(request,pk):
                 )
 
                 template_owner = render_to_string('sms_template_owner.html',
-                                                 {'name': request.user.customer,
+                                                 {'name': product.customer.name,
                                                   'p_name': product.name,
                                                   'p_date': data['rent_from'],
                                                   'd_date': data['rent_to'],
@@ -138,7 +138,7 @@ def indexitem(request,pk):
                     .create(
                     body=template_owner,
                     from_='+12538678134',
-                    to=request.user.customer.phone
+                    to=product.customer.phone
                 )
 
                 '''template = render_to_string('email_template.html', {'name': request.user.customer})
