@@ -6,7 +6,7 @@ from .decoraters import *
 from django.contrib.auth.models import Group
 from .forms import *
 from  .filters import *
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from  django.conf import settings
 from  django.template.loader import render_to_string
 
@@ -21,8 +21,8 @@ from .availability import check_availability
 
 from .models import  *
 
-
-
+from twilio.rest import Client
+import os
 
 
 
@@ -104,17 +104,35 @@ def indexitem(request,pk):
                 total_cost = times * product.price
                 messages.info(request, total_cost)
 
-                '''form.save()'''
+                form.save()
+
+
+
+                account_sid = 'AC349835a3e0964560965fc51eb3a3c48c'
+                auth_token = 'f054ada37e070dad992f4c47334f1ee6'
+                client = Client(account_sid, auth_token)
+                template = render_to_string('email_template.html', {'name': request.user.customer})
+
+                client.messages \
+                    .create(
+                    body=template,
+                    from_='+12538678134',
+                    to=request.user.customer.phone
+                )
+
+                '''template = render_to_string('email_template.html', {'name': request.user.customer})
+                email = EmailMessage (
+                    'Your booking is confirmed !!',
+                    template,
+                    settings.EMAIL_HOST_USER,
+                    [request.user.customer.email],
+                )
+                email.fail_silently = False
+                email.send()'''
 
             else:
                 messages.info(request, 'Sorry! it is booked, please select another date')
 
-            '''template = render_to_string( 'confirmation.html', {'name' :request.user.customer})
-            send_mail('dasd',
-                         'sadsdsd',
-                         settings.EMAIL_HOST_USER,
-                         ['n.kalkan5506@gmail.com'],
-                         )'''
 
         else:
             print('hataa')
