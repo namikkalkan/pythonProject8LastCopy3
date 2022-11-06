@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'ecommerce.apps.EcommerceConfig',
     'crispy_forms',
     'django_filters',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
 ]
+SITE_ID = 1
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 

@@ -4,9 +4,24 @@ from . import views
 #to view static images on urls
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic.base import TemplateView #import TemplateView
+
+#sitemap, robots
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import ArticleSitemap
+
+sitemaps = {
+    'blog':ArticleSitemap
+}
 
 
 urlpatterns = [
+
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+
+
+
     path('', views.index, name='index'),
     path('item/<str:pk>/', views.indexitem, name='indexitem'),
 

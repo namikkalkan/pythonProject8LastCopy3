@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Test (models.Model):
+    name = models.CharField(max_length=100, null=True)
+
+    def get_absolute_url(self):
+        return f"/products/{self.slug}/"
 
 
 class Customer (models.Model):
